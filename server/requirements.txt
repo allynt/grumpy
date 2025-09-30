@@ -1,0 +1,10 @@
+django
+django-colorfield
+django-environ
+django-cors-headers
+djangorestframework
+dj-database-url
+drf-spectacular
+psycopg2-binary
+tzdata
+zxcvbn
