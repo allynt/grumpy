@@ -1,13 +1,14 @@
 services:
 
   grumpy-db:
-    image: postgres:latest
+    image: kartoza/postgis:latest
     environment:
-      POSTGRES_DB: grumpy_db
       POSTGRES_USER: grumpy_user
-      POSTGRES_PASSWORD: grumpy_pwd
-    ports: 
-      - "5432:5432"
+      POSTGRES_PASS: grumpy_pwd
+      POSTGRES_DBNAME: grumpy_db
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    ports:
+      - "5666:5432"
     networks:
       - grumpy
 

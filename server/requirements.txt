@@ -3,6 +3,7 @@ django-colorfield
 django-environ
 django-cors-headers
 djangorestframework
+djangorestframework-gis
 dj-database-url
 drf-spectacular
 psycopg2-binary
