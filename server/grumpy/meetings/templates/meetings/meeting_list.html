@@ -1,0 +1,9 @@
+These are the meetings so far.
+<ul>
+    {% for meeting in meetings %}
+        <li>
+            {{ meeting.date }}<br/>
+            {{ meeting.book }}
+        </li>
+    {% endfor %}
+</ul>
