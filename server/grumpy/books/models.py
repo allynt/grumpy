@@ -10,13 +10,15 @@ class BookManager(models.Manager):
     def get_by_natural_key(self, title, author):
         return self.get(title=title, author=author)
 
+
 class BookQuerySet(models.QuerySet):
-    
+
     def read(self):
         return self.filter(meeting__isnull=False)
-    
+
     def unread(self):
         return self.filter(meeting__isnull=True)
+
 
 class Book(models.Model):
 
@@ -28,7 +30,7 @@ class Book(models.Model):
                 Lower("title").desc(),
                 Lower("author").desc(),
                 name="unique_title_author",
-                violation_error_message="A book with the same title/author combination exists."
+                violation_error_message="A book with the same title/author combination exists.",
             )
         ]
 
@@ -38,7 +40,13 @@ class Book(models.Model):
     author = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
 
-    owner = models.ForeignKey(UserProfile, blank=True, null=True, related_name="books", on_delete=models.SET_NULL)
+    owner = models.ForeignKey(
+        UserProfile,
+        blank=True,
+        null=True,
+        related_name="books",
+        on_delete=models.SET_NULL,
+    )
 
     def __str__(self):
         return self.title

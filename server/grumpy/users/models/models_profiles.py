@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 # UserProfile handles all app-related stuff
 
+
 class UserProfile(models.Model):
     class Meta:
         verbose_name = "User Profile"

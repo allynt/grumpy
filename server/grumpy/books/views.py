@@ -6,7 +6,9 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 
 from grumpy.books.models import Book
+
 # from grumpy.books.forms import BookFormSet
+
 
 @method_decorator(login_required, name="dispatch")
 class BookListView(ListView):
@@ -29,7 +31,7 @@ class BookListView(ListView):
         current_user = self.request.user
         queryset = Book.objects.filter(owner=current_user.profile)
         return queryset
-    
+
 
 class BookCreateView(CreateView):
     model = Book
@@ -44,6 +46,7 @@ class BookCreateView(CreateView):
         current_user = self.request.user
         form.instance.owner = current_user.profile
         return super().form_valid(form)
+
 
 class BookUpdateView(UpdateView):
     model = Book
@@ -60,5 +63,3 @@ class BookDeleteView(DeleteView):
     context_object_name = "book"
     template_name = "books/book_confirm_delete.html"
     success_url = reverse_lazy("book-list")
-
-

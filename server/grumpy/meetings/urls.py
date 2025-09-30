@@ -1,4 +1,3 @@
-
 from django.urls import path
 
 from grumpy.meetings.views import MeetingListView, MeetingCreateView

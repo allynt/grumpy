@@ -28,11 +28,7 @@ class UserAdmin(DjangoUserAdmin):
         (None, {"fields": ("id", "email", "password")}),
         (
             _("General info"),
-            {
-                "fields": (
-                    "verified",
-                )
-            },
+            {"fields": ("verified",)},
         ),
         (
             _("Permissions"),

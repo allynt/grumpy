@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 
 from zxcvbn import zxcvbn
 
+
 class LengthPasswordValidator:
     """
     Validates the password length is inside a range.

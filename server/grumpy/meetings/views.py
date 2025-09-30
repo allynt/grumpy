@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from grumpy.meetings.models import Meeting
 from grumpy.books.models import Book
 
+
 @method_decorator(login_required, name="dispatch")
 class MeetingListView(ListView):
     model = Meeting
@@ -22,7 +23,7 @@ class MeetingListView(ListView):
     def get_queryset(self):
         queryset = Meeting.objects.all()
         return queryset
-    
+
 
 class MeetingCreateView(CreateView):
     model = Meeting
@@ -37,4 +38,4 @@ class MeetingCreateView(CreateView):
         # unread_books = Book.objects.unread()
         unread_books = Book.objects.filter(meeting__isnull=True)
         random_unread_book = unread_books.order_by("?").first()
-        return { "book": random_unread_book }
+        return {"book": random_unread_book}

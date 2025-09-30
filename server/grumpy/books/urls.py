@@ -1,7 +1,11 @@
-
 from django.urls import path
 
-from grumpy.books.views import BookListView, BookCreateView, BookUpdateView, BookDeleteView
+from grumpy.books.views import (
+    BookListView,
+    BookCreateView,
+    BookUpdateView,
+    BookDeleteView,
+)
 
 urlpatterns = [
     path("", BookListView.as_view(), name="book-list"),

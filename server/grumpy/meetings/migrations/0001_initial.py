@@ -10,21 +10,41 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('books', '0002_book_owner'),
+        ("books", "0002_book_owner"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Meeting',
+            name="Meeting",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateTimeField(db_default=django.db.models.functions.datetime.Now())),
-                ('notes', models.TextField(blank=True, null=True)),
-                ('book', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='meeting', to='books.book')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "date",
+                    models.DateTimeField(
+                        db_default=django.db.models.functions.datetime.Now()
+                    ),
+                ),
+                ("notes", models.TextField(blank=True, null=True)),
+                (
+                    "book",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="meeting",
+                        to="books.book",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Meeting',
-                'verbose_name_plural': 'Meetings',
+                "verbose_name": "Meeting",
+                "verbose_name_plural": "Meetings",
             },
         ),
     ]

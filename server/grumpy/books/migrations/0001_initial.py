@@ -8,22 +8,42 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('author', models.CharField(max_length=255)),
-                ('description', models.TextField(blank=True, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("author", models.CharField(max_length=255)),
+                ("description", models.TextField(blank=True, null=True)),
             ],
             options={
-                'verbose_name': 'Book',
-                'verbose_name_plural': 'Books',
-                'constraints': [models.UniqueConstraint(models.OrderBy(django.db.models.functions.text.Lower('title'), descending=True), models.OrderBy(django.db.models.functions.text.Lower('author'), descending=True), name='unique_title_author', violation_error_message='A book with the same title/author combination exists.')],
+                "verbose_name": "Book",
+                "verbose_name_plural": "Books",
+                "constraints": [
+                    models.UniqueConstraint(
+                        models.OrderBy(
+                            django.db.models.functions.text.Lower("title"),
+                            descending=True,
+                        ),
+                        models.OrderBy(
+                            django.db.models.functions.text.Lower("author"),
+                            descending=True,
+                        ),
+                        name="unique_title_author",
+                        violation_error_message="A book with the same title/author combination exists.",
+                    )
+                ],
             },
         ),
     ]

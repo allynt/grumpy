@@ -31,8 +31,7 @@ class Command(BaseCommand):
             dest="domain",
             required=False,
             default=DEFAULT_SITE_DOMAIN,
-            help=
-            f"Domain to update the Site with (if unprovided will use '{DEFAULT_SITE_DOMAIN}'",
+            help=f"Domain to update the Site with (if unprovided will use '{DEFAULT_SITE_DOMAIN}'",
         )
 
         parser.add_argument(
@@ -53,10 +52,7 @@ class Command(BaseCommand):
             name = options.get("name", domain)
 
             site, created = Site.objects.update_or_create(
-                id=options["id"],
-                defaults={
-                    "domain": domain[:100], "name": name[:50]
-                }
+                id=options["id"], defaults={"domain": domain[:100], "name": name[:50]}
             )
 
         except IntegrityError:
