@@ -11,7 +11,7 @@ RUN useradd -ms /bin/bash app && usermod -aG www-data app
 # install dependencies...
 RUN install_clean build-essential software-properties-common \
     python3 python3-dev python3-setuptools python3-wheel python3-pip \
-    python3-venv python-is-python3 \
+    python3-gdal python3-venv python-is-python3 \
     postgresql-client python3-psycopg2 \
     curl git gpg htop less nginx vim \
     figlet toilet 

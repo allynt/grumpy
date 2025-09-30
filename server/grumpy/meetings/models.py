@@ -1,3 +1,4 @@
+from django.contrib.gis.db import models as gis_models
 from django.db import models
 from django.db.models.functions import Now
 
@@ -15,7 +16,7 @@ class MeetingQuerySet(models.QuerySet):
     pass
 
 
-class Meeting(models.Model):
+class Meeting(gis_models.Model):
 
     class Meta:
         verbose_name = "Meeting"
@@ -24,7 +25,7 @@ class Meeting(models.Model):
     objects = MeetingManager.from_queryset(MeetingQuerySet)
 
     date = models.DateTimeField(db_default=Now())
-    # location = models.CharField(max_length=255, blank=False, null=False)
+    location = gis_models.PointField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     # status: enum FUTURE, PAST
 
