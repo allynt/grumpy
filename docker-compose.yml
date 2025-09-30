@@ -1,0 +1,32 @@
+services:
+
+  grumpy-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: grumpy_db
+      POSTGRES_USER: grumpy_user
+      POSTGRES_PASSWORD: grumpy_pwd
+    ports: 
+      - "5432:5432"
+    networks:
+      - grumpy
+
+  grumpy-server:
+    build:
+      context: .
+    env_file:
+      - .env
+    environment:
+      ENABLE_DJANGO: 1
+      DJANGO_SETTINGS_MODULE: config.settings
+    volumes:
+      - ./server:/home/app/server
+    ports:
+      - "8000:8000"
+    networks:
+      - grumpy
+
+networks:
+  grumpy:
+    name: grumpy
+    driver: bridge
