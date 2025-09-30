@@ -1,0 +1,16 @@
+These are the books proposed by {{profile.user}}
+<ul>
+    {% for book in books %}
+        <li>
+            {{ book.title }}<br/>
+            {{ book.author}}
+        </li>
+    {% endfor %}
+</ul>
+
+{% url 'book-add' as book_add_url %}
+{% if profile.can_add_books %}
+  Hooray, you can <a href="{{ book_add_url }}">add more books</a>.
+{% else %}
+  Sorry, you cannot propose any more books.
+{% endif %}
