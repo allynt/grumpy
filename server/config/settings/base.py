@@ -59,6 +59,8 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "allauth",
+    "allauth.account",
     "colorfield",
     "corsheaders",
     "drf_spectacular",
@@ -177,6 +179,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ###################
@@ -191,7 +194,38 @@ LOGOUT_REDIRECT_URL = "/"
 AUTH_USER_MODEL = "users.User"
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
+
+# allauth stuff...
+
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+ACCOUNT_FORMS = {
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'confirm_login_code': 'allauth.account.forms.ConfirmLoginCodeForm',
+    'login': 'allauth.account.forms.LoginForm',
+    'request_login_code': 'allauth.account.forms.RequestLoginCodeForm',
+    'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'signup': 'allauth.account.forms.SignupForm',
+    'user_token': 'allauth.account.forms.UserTokenForm',
+}
+ACCOUNT_PREVENT_ENUMERATION = False
+ACCOUNT_SESSION_REMEMBER = None
+ACCOUNT_SIGNUP_FIELDS = ["email", "password1", "password2"]
+ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "username"
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_LOGIN_ON_EMAIL = False
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
+ACCOUNT_EMAIL_VERIFICATION = "optional"  # "mandatory"
+ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = PROJECT_NAME
+ACCOUNT_EMAIL_NOTIFICATIONS = True  # False
+ACCOUNT_CHANGE_EMAIL = True  # (prevents having more than 1 email)
+ACCOUNT_USER_DISPLAY = "grumpy.users.auth.get_user_display"
+
 
 ##############
 # passowords #
