@@ -1,5 +1,40 @@
-<form action="." method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
+{% extends "base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+{% load tags_settings %}
+
+
+{% block content %}
+
+    <div class="alert alert-info" role="alert">
+        {% if book.meeting %}           
+            This book is assigned to the meeting at: {{ book.meeting }}.
+        {% else %}
+            This book is not assigned to any meeting.
+        {% endif %}
+    </div>
+        
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {% endfor %}
+        
+      
+        <button type="submit" class="btn btn-primary">Update</button>
+        {% if book %}
+            {% if not book.meeting %}
+                <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        {% endif  %}
+    </form>
+
+{% endblock content %}

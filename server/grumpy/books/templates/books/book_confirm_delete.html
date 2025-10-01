@@ -1,6 +1,16 @@
-<form method="post">
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{ book.title }}"?</p>
-    {{ form }}
-    <input type="submit" value="Confirm">
-</form>
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+
+        <p>Are you sure you want to delete "{{ book.title }}"?</p>
+
+        {{ form }}
+        
+        <button type="submit" class="btn btn-danger">Confirm</button>
+       
+    </form>
+
+{% endblock content %}

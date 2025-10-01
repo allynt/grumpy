@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -24,8 +25,7 @@ class MeetingListView(ListView):
         queryset = Meeting.objects.all()
         return queryset
 
-
-class MeetingCreateView(CreateView):
+class MeetingCreateView(UserPassesTestMixin, CreateView):
     model = Meeting
     fields = [
         "book",
@@ -33,6 +33,11 @@ class MeetingCreateView(CreateView):
         "notes",
     ]
     template_name = "meetings/meeting_form.html"
+    success_url = reverse_lazy("meeting-list")
+
+    def test_func(self):
+        # restrict view to admins only as per https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
+        return self.request.user.is_superuser
 
     def get_initial(self):
         # unread_books = Book.objects.unread()

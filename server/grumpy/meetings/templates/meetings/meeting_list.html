@@ -1,9 +1,39 @@
-These are the meetings so far.
-<ul>
-    {% for meeting in meetings %}
-        <li>
-            {{ meeting.date }}<br/>
-            {{ meeting.book }}
+{% extends "base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+{% load tags_settings %}
+
+{% block content %}
+    
+    <p>
+      Here are some meetings:
+    </p>
+    
+    <ul class="list-group">
+      {% for meeting in meetings %}
+        <li class="list-group-item">
+            {{ meeting.date }} discussing <a href="{% url 'book-update' meeting.book.pk %}">"{{ meeting.book }}" by {{meeting.book.author}}</a>
         </li>
-    {% endfor %}
-</ul>
+      {% endfor %}
+    </ul>
+
+  <br/>
+
+  I AM Here
+
+  <div class="card  bg-light mb-3">
+    <div class="card-body">
+      <!-- <h5 class="card-title">Info card title</h5> -->
+      <p class="card-text">   
+        {% if user.is_superuser %}
+          Hooray, you can <a href="{% url 'meeting-add' %}">add more meetings</a>!
+        {% endif %}
+      </p>
+    </div>
+  </div>
+   
+    
+{% endblock content %} 
+

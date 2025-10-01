@@ -41,6 +41,7 @@ class BookCreateView(CreateView):
         "description",
     ]
     template_name = "books/book_form.html"
+    success_url = reverse_lazy("book-list")
 
     def form_valid(self, form):
         current_user = self.request.user
@@ -56,6 +57,7 @@ class BookUpdateView(UpdateView):
         "description",
     ]
     template_name = "books/book_form.html"
+    context_object_name = "book"
 
 
 class BookDeleteView(DeleteView):

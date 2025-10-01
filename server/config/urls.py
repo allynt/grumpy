@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from allauth.account.decorators import secure_admin_login
+
 from config.types import EnvironmentTypes
 
 from grumpy.core.urls import urlpatterns as core_urlpatterns
@@ -44,6 +46,11 @@ admin.site.index_title = settings.ADMIN_INDEX_TITLE
 #################
 # normal routes #
 #################
+
+admin.autodiscover()
+admin.site.login = secure_admin_login(
+    admin.site.login
+)  # (just use the same login method for the admin)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
