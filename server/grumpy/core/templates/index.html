@@ -18,10 +18,14 @@
     <p>We are a group of grumpy old men near Exmouth who like to meet at the pub and talk about books.</p>
 
     <p>So far we have read {{ n_read_books }} books.</p>
-    <p>There are currently {{ n_unread_books }} books waiting to be read.&nbsp;&nbsp;We'll get to them eventually.</p>
+    <p>There are currently {{ n_unread_books }} books waiting to be read.
+        {% if n_unread_books > 0 %}
+            <span class="font-italic">We'll get to them eventually.</span>
+        {% endif %}
+    </p>
 
     <p>Our next meeting is X where we will be talking about X by X.</p>
-/p>
+
     <p>Feel free to nominate some <a href="{% url 'book-list' %}">books</a>.</p>
 
     <p>For more info, check out our <a href="https://www.facebook.com/groups/exmouthgrumpyoldmenbookclub">Facebook Group</a>.</p>
