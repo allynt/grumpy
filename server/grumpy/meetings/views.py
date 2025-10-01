@@ -25,6 +25,7 @@ class MeetingListView(ListView):
         queryset = Meeting.objects.all()
         return queryset
 
+
 class MeetingCreateView(UserPassesTestMixin, CreateView):
     model = Meeting
     fields = [

@@ -10,10 +10,11 @@ from grumpy.users.models import UserProfile
 
 
 class BookStatus(str, Enum):
-  
+
     UNREAD = "Unread"
     READ = "Read"
     READING = "Reading"
+
 
 class BookManager(models.Manager):
     def get_by_natural_key(self, title, author):
@@ -27,6 +28,7 @@ class BookQuerySet(models.QuerySet):
 
     def unread(self):
         return self.filter(meeting__isnull=True)
+
 
 class Book(models.Model):
 
