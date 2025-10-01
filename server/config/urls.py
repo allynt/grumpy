@@ -47,6 +47,7 @@ admin.site.index_title = settings.ADMIN_INDEX_TITLE
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("allauth.urls")),
     path("", include(core_urlpatterns)),
     path("users/", include(users_urlpatterns)),
     path("books/", include(books_urlpatterns)),

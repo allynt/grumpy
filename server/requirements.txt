@@ -1,4 +1,5 @@
 django
+django-allauth[socialaccount]
 django-colorfield
 django-environ
 django-cors-headers
