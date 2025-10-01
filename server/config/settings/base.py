@@ -227,7 +227,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = PROJECT_NAME
 ACCOUNT_EMAIL_NOTIFICATIONS = True  # False
 ACCOUNT_CHANGE_EMAIL = True  # (prevents having more than 1 email)
 ACCOUNT_USER_DISPLAY = "grumpy.users.auth.get_user_display"
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 ##############
 # passowords #
@@ -293,6 +293,16 @@ DEFAULT_FROM_EMAIL = f"{PROJECT_NAME} <{PROJECT_EMAIL.format(role='grumpy-info')
 ######################
 # app-specific stuff #
 ######################
+
+ALLOW_SIGNUP = DynamicSetting(
+    "core.GrumpySettings.allow_signup",
+    True,
+)
+
+ALLOW_SIGNIN = DynamicSetting(
+    "core.GrumpySettings.allow_signin",
+    True,
+)
 
 PASSWORD_MIN_LENGTH = DynamicSetting(
     "core.GrumpySettings.password_min_length",

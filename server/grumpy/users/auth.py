@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 
 from allauth.account.adapter import DefaultAccountAdapter
 
@@ -9,8 +11,8 @@ def get_user_display(user):
     # https://joshkaramuth.com/blog/django-allauth-without-username-field/
     return user.email
 
-    import typing
-
-
 class AccountAdapter(DefaultAccountAdapter):
-    pass
+    
+    def is_open_for_signup(self, request):
+        return settings.ALLOW_SIGNUP
+        
