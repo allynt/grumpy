@@ -21,6 +21,7 @@ class Meeting(gis_models.Model):
     class Meta:
         verbose_name = "Meeting"
         verbose_name_plural = "Meetings"
+        ordering = ["-date"]
 
     objects = MeetingManager.from_queryset(MeetingQuerySet)
 

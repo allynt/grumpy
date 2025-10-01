@@ -1,10 +1,19 @@
+from enum import Enum
+
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models.functions import Lower
 from django.urls import reverse
 
 from grumpy.users.models import UserProfile
 
+
+class BookStatus(str, Enum):
+  
+    UNREAD = "Unread"
+    READ = "Read"
+    READING = "Reading"
 
 class BookManager(models.Manager):
     def get_by_natural_key(self, title, author):
@@ -18,7 +27,6 @@ class BookQuerySet(models.QuerySet):
 
     def unread(self):
         return self.filter(meeting__isnull=True)
-
 
 class Book(models.Model):
 
@@ -61,6 +69,10 @@ class Book(models.Model):
         )
 
     @property
-    def can_delete(self):
-        print("RAMA LAMAA FA FA FA")
-        return self.meeting is None
+    def status(self):
+        try:
+            meeting = self.meeting
+            # TODO: A BIT MORE FINE-GRAINED
+            return BookStatus.READ
+        except ObjectDoesNotExist:
+            return BookStatus.UNREAD

@@ -8,6 +8,14 @@
 
 {% block content %}
 
+    <div class="alert alert-info" role="alert">
+        {% if book.meeting %}           
+            This book is assigned to the meeting at: {{ book.meeting }}.
+        {% else %}
+            This book is not assigned to any meeting.
+        {% endif %}
+    </div>
+        
     <form action="." method="post">
         {% csrf_token %}
 
@@ -19,9 +27,13 @@
                 {{ field.label_tag }} {{ field }}
             </div>
         {% endfor %}
+        
+      
         <button type="submit" class="btn btn-primary">Update</button>
         {% if book %}
-            <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Delete</a>
+            {% if not book.meeting %}
+                <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
         {% endif  %}
     </form>
 
