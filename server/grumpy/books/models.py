@@ -59,3 +59,8 @@ class Book(models.Model):
             self.title,
             self.author,
         )
+
+    @property
+    def can_delete(self):
+        print("RAMA LAMAA FA FA FA")
+        return self.meeting is None

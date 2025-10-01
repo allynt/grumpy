@@ -33,6 +33,7 @@ class MeetingCreateView(CreateView):
         "notes",
     ]
     template_name = "meetings/meeting_form.html"
+    success_url = reverse_lazy("meeting-list")
 
     def get_initial(self):
         # unread_books = Book.objects.unread()

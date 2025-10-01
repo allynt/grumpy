@@ -27,7 +27,7 @@ ROOT_DIR = Path(__file__).resolve(strict=True).parents[2]  # (server dir)
 CONFIG_DIR = ROOT_DIR / "config"
 APP_DIR = ROOT_DIR / "grumpy"
 
-PROJECT_NAME = "Exmouth Grumpy Mens Book Club"
+PROJECT_NAME = "Exmouth Grumpy Old Mens Book Club"
 PROJECT_SLUG = slugify(PROJECT_NAME)
 PROJECT_EMAIL = "{role}" + env("DJANGO_EMAIL_DOMAIN", default="gmail.com")
 
@@ -199,24 +199,26 @@ AUTHENTICATION_BACKENDS = [
 
 # allauth stuff...
 
-ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+ACCOUNT_ADAPTER = "grumpy.users.auth.AccountAdapter"
 ACCOUNT_FORMS = {
-    'add_email': 'allauth.account.forms.AddEmailForm',
-    'change_password': 'allauth.account.forms.ChangePasswordForm',
-    'confirm_login_code': 'allauth.account.forms.ConfirmLoginCodeForm',
-    'login': 'allauth.account.forms.LoginForm',
-    'request_login_code': 'allauth.account.forms.RequestLoginCodeForm',
-    'reset_password': 'allauth.account.forms.ResetPasswordForm',
-    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
-    'set_password': 'allauth.account.forms.SetPasswordForm',
-    'signup': 'allauth.account.forms.SignupForm',
-    'user_token': 'allauth.account.forms.UserTokenForm',
+    "add_email": "allauth.account.forms.AddEmailForm",
+    "change_password": "allauth.account.forms.ChangePasswordForm",
+    "confirm_login_code": "allauth.account.forms.ConfirmLoginCodeForm",
+    "login": "allauth.account.forms.LoginForm",
+    "request_login_code": "allauth.account.forms.RequestLoginCodeForm",
+    "reset_password": "allauth.account.forms.ResetPasswordForm",
+    "reset_password_from_key": "allauth.account.forms.ResetPasswordKeyForm",
+    "set_password": "allauth.account.forms.SetPasswordForm",
+    "signup": "allauth.account.forms.SignupForm",
+    "user_token": "allauth.account.forms.UserTokenForm",
 }
 ACCOUNT_PREVENT_ENUMERATION = False
 ACCOUNT_SESSION_REMEMBER = None
-ACCOUNT_SIGNUP_FIELDS = ["email", "password1", "password2"]
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "username"
-ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_LOGIN_METHODS = {
+    "email",
+}
 ACCOUNT_LOGIN_ON_EMAIL = False
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
 ACCOUNT_EMAIL_VERIFICATION = "optional"  # "mandatory"
