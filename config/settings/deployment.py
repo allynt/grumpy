@@ -4,6 +4,10 @@ Custom settings for "deployment" environment.
 
 from .base import *
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 #########
 # setup #
 #########
@@ -18,6 +22,27 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 ########
 
 INSTALLED_APPS += []
+
+#############
+# databases #
+#############
+
+# Hacky fix for deploymennt; when heroku provision a database,
+# it automatically exports `DATABASE_URL` w/ the "postgres" prefix,
+# b/c that's automatic, I can't change it...
+# even though I've enabled the postgist extensions.
+# (the django-on-heroku package could fix this, but that seems a bit heavyweight)`
+# So I manually change things here
+
+USE_POSTGIS = env("DJANGO_DATABASE_SCHEME", default="postgres") == "postgis"
+logger.info(f"***** USE_POSTGIS = {USE_POSTGIS} *****")
+if USE_POSTGIS:
+    DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
+    logger.info(
+        "overwriting DATABASES['default']['ENGINE'] to support postgis on heroku"
+    )
+else:
+    logger.info("YOU FUCKED UP")
 
 ########################
 # static & media Files #
