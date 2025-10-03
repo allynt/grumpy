@@ -10,4 +10,5 @@ drf-spectacular
 gunicorn
 psycopg2-binary
 tzdata
+whitenoise[brotli]
 zxcvbn

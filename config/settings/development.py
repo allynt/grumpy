@@ -17,30 +17,29 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="shhh")
 # apps #
 ########
 
+# TODOD: might want to add whitenoie.runserver_nostatic as per https://whitenoise.readthedocs.io/en/latest/django.html#using-whitenoise-in-development
+
 INSTALLED_APPS += []
 
 ########################
 # static & media Files #
 ########################
 
-STATICFILES_STORAGE = "grumpy.core.storage.LocalStaticStorage"
-DEFAULT_FILE_STORAGE = "grumpy.core.storage.LocalMediaStorage"
+STORAGES = {
+    "default": {
+        "BACKEND": "grumpy.core.storages.LocalMediaStorage"  # "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "grumpy.core.storages.LocalStaticStorage"  # "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 
 STATIC_URL = "/static/"
 STATIC_ROOT = ROOT_DIR / "_static"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = ROOT_DIR / "_media"
-
-# These next env vars aren't used in development, but they still ought
-# to be defined so that the classes in "storages.py" module can load...
-
-STATIC_LOCATION = ""
-STATIC_DEFAULT_ACL = ""
-PUBLIC_MEDIA_LOCATION = ""
-PUBLIC_MEDIA_DEFAULT_ACL = ""
-PRIVATE_MEDIA_LOCATION = ""
-PRIVATE_MEDIA_DEFAULT_ACL = ""
 
 ##################
 # security, etc. #
