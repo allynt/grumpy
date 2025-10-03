@@ -14,7 +14,7 @@
     <ul class="list-group">
       {% for meeting in meetings %}
         <li class="list-group-item">
-            {{ meeting.date }} discussing <a href="{% url 'book-update' meeting.book.pk %}">"{{ meeting.book }}" by {{meeting.book.author}}</a>
+            {{ meeting.date }} we'll be discussing: <a href="{% url 'book-update' meeting.book.pk %}">"{{ meeting.book }}" by {{meeting.book.author}}</a>
         </li>
       {% endfor %}
     </ul>

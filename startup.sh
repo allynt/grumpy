@@ -12,7 +12,7 @@ if [ ! -z ${RUN_AS_UID} ]; then usermod --uid $RUN_AS_UID app; fi
 if [ ! -z ${RUN_AS_GID} ]; then groupmod --gid $RUN_AS_GID app; fi
 
 # install dependencies
-cd "${APP_HOME}/server"
+cd "${APP_HOME}"
 # setuser app pip install --no-cache-dir -r requirements.txt
 setuser app python -m pip install --no-cache-dir -r requirements.txt
 # setuser app pdm install 
@@ -21,5 +21,5 @@ setuser app python -m pip install --no-cache-dir -r requirements.txt
 if [[ "${ENABLE_DJANGO}" -eq 1 ]]; then  
     echo -e "\n### STARTING DJANGO ###\n"
     mkdir -p /etc/service/django
-    cp ../run-django.sh /etc/service/django/run
+    cp run-django.sh /etc/service/django/run
 fi
