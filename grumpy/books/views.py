@@ -7,8 +7,6 @@ from django.utils.decorators import method_decorator
 
 from grumpy.books.models import Book
 
-# from grumpy.books.forms import BookFormSet
-
 
 @method_decorator(login_required, name="dispatch")
 class BookListView(ListView):

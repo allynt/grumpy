@@ -29,7 +29,7 @@ APP_DIR = ROOT_DIR / "grumpy"
 
 PROJECT_NAME = "Exmouth Grumpy Old Mens Book Club"
 PROJECT_SLUG = slugify(PROJECT_NAME)
-PROJECT_EMAIL = "{role}" + env("DJANGO_EMAIL_DOMAIN", default="gmail.com")
+PROJECT_EMAIL = "{role}@" + env("DJANGO_EMAIL_DOMAIN", default="gmail.com")
 
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
@@ -63,8 +63,8 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "colorfield",
     "corsheaders",
-    "drf_spectacular",
-    "rest_framework",
+    # "drf_spectacular",
+    # "rest_framework",
 ]
 
 LOCAL_APPS = [
@@ -187,8 +187,6 @@ MIDDLEWARE = [
 # authentication #
 ##################
 
-# TODO
-
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
@@ -277,7 +275,7 @@ DEFAULT_FROM_EMAIL = f"{PROJECT_NAME} <{PROJECT_EMAIL.format(role='grumpy-info')
 # API #
 #######
 
-# TODO: SHOULD I USE DRF ?
+# NOT USING DRF
 
 ###########
 # logging #

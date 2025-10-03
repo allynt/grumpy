@@ -7,29 +7,47 @@
 
 {% block header %}
     {{ block.super }}
-    <img id="banner" src="{% static 'core/img/banner.jpg' %}">
+    <div id="banner" class="text-center" style="background-color: #150904;">
+        <img class="img-fluid"  src="{% static 'core/img/banner.jpg' %}"/>
+    </div>
 {% endblock header %}
 
 {% block content %}
 
-    <br/>
-    <p>This page is intentionally boring.</p>
-
-    <p>We are a group of grumpy old men near Exmouth who like to meet at the pub and talk about books.</p>
-
-    <p>So far we have read {{ n_read_books }} books.</p>
-    <p>There are currently {{ n_unread_books }} books waiting to be read.
-        {% if n_unread_books > 0 %}
-            <span class="font-italic">We'll get to them eventually.</span>
-        {% endif %}
-    </p>
-
-    <p>Our next meeting is X where we will be talking about X by X.</p>
-
-    <p>Feel free to nominate some <a href="{% url 'book-list' %}">books</a>.</p>
-
-    <p>For more info, check out our <a href="https://www.facebook.com/groups/exmouthgrumpyoldmenbookclub">Facebook Group</a>.</p>
-
-    <p>That is all.</p>
+     <div class="card">
+        <div class="card-header">
+            Hello World.
+        </div>    
+        <div class="card-body">
+            <h5 class="card-title">
+                We are a group of grumpy old men who like to meet at the pub and talk about books.
+            </h5>
+            <h6 class="card-subtitle text-muted">(Please sign in and use the navigation links above to do stuff.)</h6>
+            <br/>
+            <p class="card-text">
+                We all anonymously nominate books to read.  Then one book is selected at random to discuss at the next meeting.
+            </p>
+            <p class="card-text">
+                So far we have selected <strong>{{ n_read_books }}</strong> book{{ n_unread_books|pluralize }}.
+                And there {{ n_unread_books|pluralize:"is,are" }} <strong>{{ n_unread_books }}</strong> book{{ n_unread_books|pluralize }} waiting to be read.
+                {% if n_unread_books > 0 %}
+                    <i>We'll get to {{ n_unread_books|pluralize:"it,them" }} eventually.</i>
+                {% endif %}
+            </p>
+            <p class="card-text">
+                {% if meeting %}
+                    The next planned meeting is: <strong>{{ meeting }}</strong>
+                {% else %}
+                    There are no planned meetings currently.
+                {% endif %}
+            </p>
+            <p class="card-text">
+                For more info, check out our <a href="https://www.facebook.com/groups/exmouthgrumpyoldmenbookclub" class="card-link">Facebook Group</a>.
+            </p>
+            <p class="card-text">
+                That is all.
+            </p>
+        </div>
+    </div>
 
 {% endblock content %} 

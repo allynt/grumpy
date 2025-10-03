@@ -9,13 +9,15 @@
 
 {% block header %}
     {{ block.super }}
-    <img id="banner" src="{% static 'core/img/help.jpg' %}">
+    <div id="banner" class="text-center" style="background-color: #150904;">
+        <img class="img-fluid"  src="{% static 'core/img/help.jpg' %}"/>
+    </div>
 {% endblock header %}
 
 {% block content %}
 
     <br/>
-     <div class="card">
+     <div class="card border-info">
         <div class="card-header">
             But how does it work ?
         </div>    
@@ -36,7 +38,7 @@
                     </li>
                     <li>
                         Once signed in, you can add books.  
-                        At any given time, you can only have {{ settings.MAX_FREE_BOOKS }} books that aren't assigned to a meeting.
+                        At any given time, you can only have {% settings_value 'MAX_FREE_BOOKS' %} books that aren't assigned to a meeting.
                         Don't worry, the "Add more books" link will appear / dissappear as neeeded.
                         You can update any of your books at any time.
                         You can delete any of your books so long as it hasn't been assigned to a meeting.
@@ -45,7 +47,7 @@
                         You can look at a list of all meetings, past and present.
                         <ul>
                             <li>
-                                Only the admin (me) can create a new meeting.  
+                                Only the admin (<em>not you</em>) can create a new meeting.  
                                 Upon creation, a meeting is automatically allocated a random unassigned book.
                             </li>
                         </ul>
@@ -55,21 +57,19 @@
         </div>
     </div>
 
-    <div class="card">
+    <br/>
+
+    <div class="card border-warning">
         <div class="card-header">
             Colophon
         </div>    
         <div class="card-body">
             <p class="card-text">This application was written by allynt.</p>
-            <p class="card-text">It uses POSTGis & Python & Django & Bootstrap.</p>
+            <p class="card-text">It uses Docker & PostGIS & Python & Django & Bootstrap & CSS.</p>
             <p class="card-text">The code is hosted on github.  The app is hosted on Heroku.</p>
-            <p class="card-text">Thie images are all AI generated from deepai.org</p>
+            <p class="card-text">Thie images are all AI generated courtesy of "deepai.org".</p>
             <p class="card-text">Be gentle, it was written in a day without any testing.</p>
         </div>
     </div>
 
-
 {% endblock content %} 
-
-
-

@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 
 from grumpy.books.models import Book
+from grumpy.meetings.models import Meeting
 
 
 class IndexView(TemplateView):
@@ -13,6 +14,7 @@ class IndexView(TemplateView):
             {
                 "n_unread_books": books.filter(meeting__isnull=True).count(),
                 "n_read_books": books.filter(meeting__isnull=False).count(),
+                "meeting": Meeting.objects.first(),
             }
         )
         return context

@@ -15,6 +15,7 @@ services:
   grumpy-server:
     build:
       context: .
+    tty: true
     env_file:
       - .env
     environment:
