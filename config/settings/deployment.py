@@ -28,7 +28,7 @@ INSTALLED_APPS += []
 STORAGES = {
     "default": {"BACKEND": "gdjango.core.files.storage.FileSystemStorage"},
     "staticfiles": {
-        "BACKEND": "whitenose.storage.CompressedManifestStaticFilesStorage"
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
     },
 }
 
