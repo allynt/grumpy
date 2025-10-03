@@ -41,8 +41,7 @@ if USE_POSTGIS:
     logger.info(
         "overwriting DATABASES['default']['ENGINE'] to support postgis on heroku"
     )
-else:
-    logger.info("YOU FUCKED UP")
+
 
 ########################
 # static & media Files #
