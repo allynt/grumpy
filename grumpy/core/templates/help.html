@@ -36,7 +36,7 @@
                     </li>
                     <li>
                         Once signed in, you can add books.  
-                        At any given time, you can only have {{ settings.MAX_FREE_BOOKS }} books that aren't assigned to a meeting.
+                        At any given time, you can only have {% settings_value 'MAX_FREE_BOOKS' %} books that aren't assigned to a meeting.
                         Don't worry, the "Add more books" link will appear / dissappear as neeeded.
                         You can update any of your books at any time.
                         You can delete any of your books so long as it hasn't been assigned to a meeting.
@@ -45,7 +45,7 @@
                         You can look at a list of all meetings, past and present.
                         <ul>
                             <li>
-                                Only the admin (me) can create a new meeting.  
+                                Only the admin (<em>not you</em>) can create a new meeting.  
                                 Upon creation, a meeting is automatically allocated a random unassigned book.
                             </li>
                         </ul>
