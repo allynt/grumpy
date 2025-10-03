@@ -15,21 +15,58 @@
 {% block content %}
 
     <br/>
-    <p>But how does it work?</p>
-    <p>Still have questions?  Email TODO</p>
+     <div class="card">
+        <div class="card-header">
+            But how does it work ?
+        </div>    
+        <div class="card-body">
+            <div class="card-text">
+                <ul>
+                    <li>
+                        Sign up to get an account
+                        <ul>
+                            <li>At the moment, there is no email verification; I'll set that up later</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Use the navigation links above to look at <strong>books</strong> and <strong>meetings</strong>
+                    </li>
+                    <li>
+                        You can only see <em>your</em> books.  This keeps things anonymous.
+                    </li>
+                    <li>
+                        Once signed in, you can add books.  
+                        At any given time, you can only have {{ settings.MAX_FREE_BOOKS }} books that aren't assigned to a meeting.
+                        Don't worry, the "Add more books" link will appear / dissappear as neeeded.
+                        You can update any of your books at any time.
+                        You can delete any of your books so long as it hasn't been assigned to a meeting.
+                    </li>
+                    <li>
+                        You can look at a list of all meetings, past and present.
+                        <ul>
+                            <li>
+                                Only the admin (me) can create a new meeting.  
+                                Upon creation, a meeting is automatically allocated a random unassigned book.
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<div class="card">
-    <div class="card-header">
-        Colophon
-    </div>    
-    <div class="card-body">
-        <p class="card-text">This application was written by allynt.</p>
-        <p class="card-text">It uses POSTGis & Python & Django & Bootstrap.</p>
-        <p class="card-text">The code is hosted on github.  The app is hosted on Heroku.</p>
-        <p class="card-text">Thie images are all AI generated from deepai.org</p>
-        <p class="card-text">Be gentle, it was written in a day without any testing.</p>
-  </div>
-</div>
+    <div class="card">
+        <div class="card-header">
+            Colophon
+        </div>    
+        <div class="card-body">
+            <p class="card-text">This application was written by allynt.</p>
+            <p class="card-text">It uses POSTGis & Python & Django & Bootstrap.</p>
+            <p class="card-text">The code is hosted on github.  The app is hosted on Heroku.</p>
+            <p class="card-text">Thie images are all AI generated from deepai.org</p>
+            <p class="card-text">Be gentle, it was written in a day without any testing.</p>
+        </div>
+    </div>
 
 
 {% endblock content %} 
