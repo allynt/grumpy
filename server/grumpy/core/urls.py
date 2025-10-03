@@ -1,8 +1,9 @@
 from django.urls import include, path
 
-from grumpy.core.views import IndexView
+from grumpy.core.views import IndexView, HelpView
 
 urlpatterns = [
-    # path("", TemplateView.as_view(template_name="index.html")),
-    path("", IndexView.as_view()),
+    path("", IndexView.as_view(), name="index"),
+    path("help", HelpView.as_view(), name="help"),
+
 ]
