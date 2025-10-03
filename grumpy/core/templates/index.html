@@ -7,7 +7,9 @@
 
 {% block header %}
     {{ block.super }}
-    <img id="banner" src="{% static 'core/img/banner.jpg' %}">
+    <div id="banner" class="text-center" style="background-color: #150904;">
+        <img class="img-fluid"  src="{% static 'core/img/banner.jpg' %}"/>
+    </div>
 {% endblock header %}
 
 {% block content %}
