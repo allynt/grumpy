@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+
+{% block header %}
+    {{ block.super }}
+    <img id="banner" src="{% static 'core/img/books.jpg' %}">
+{% endblock header %}
