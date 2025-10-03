@@ -1,0 +1,39 @@
+
+
+{% extends "base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+{% load tags_settings %}
+
+{% block header %}
+    {{ block.super }}
+    <img id="banner" src="{% static 'core/img/help.jpg' %}">
+{% endblock header %}
+
+{% block content %}
+
+    <br/>
+    <p>But how does it work?</p>
+    <p>Still have questions?  Email TODO</p>
+
+<div class="card">
+    <div class="card-header">
+        Colophon
+    </div>    
+    <div class="card-body">
+        <p class="card-text">This application was written by allynt.</p>
+        <p class="card-text">It uses POSTGis & Python & Django & Bootstrap.</p>
+        <p class="card-text">The code is hosted on github.</p>
+        <p class="card-text">The app is hosted on Heroku usig TODO.</p>
+        <p class="card-text">Thie images are all AI generated from deepai.org</p>
+        <p class="card-text">Be gentle, it was written in a day without any testing.</p>
+  </div>
+</div>
+
+
+{% endblock content %} 
+
+
+
