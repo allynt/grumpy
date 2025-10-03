@@ -26,9 +26,7 @@ INSTALLED_APPS += []
 # TODO: I'M USING WhiteNoise; SHOULD I USE S3 (VIA Bucketeer) INSTEAD ?
 
 STORAGES = {
-    "default": {
-        "BACKEND": "gdjango.core.files.storage.FileSystemStorage" 
-    },
+    "default": {"BACKEND": "gdjango.core.files.storage.FileSystemStorage"},
     "staticfiles": {
         "BACKEND": "whitenose.storage.CompressedManifestStaticFilesStorage"
     },
