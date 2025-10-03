@@ -21,7 +21,8 @@ services:
       ENABLE_DJANGO: 1
       DJANGO_SETTINGS_MODULE: config.settings
     volumes:
-      - ./server:/home/app/server
+#      - ./server:/home/app/server
+      - .:/home/app
     ports:
       - "8000:8000"
     networks:
