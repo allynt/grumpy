@@ -5,7 +5,6 @@ Custom settings for "deployment" environment.
 from .base import *
 
 import logging
-import dj_database_url
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +35,9 @@ INSTALLED_APPS += []
 # So I manually change things here
 
 USE_POSTGIS = env("DJANGO_DATABASE_SCHEME", default="postgres") == "postgis"
+logger.info(f"***** USE_POSTGIS = {USE_POSTGIS} *****")
 if USE_POSTGIS:
-    DATABASES["default"]["ENGINE"] = dj_database_url.SCHEMES["postgis"]
+    DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
     logger.info(
         "overwriting DATABASES['default']['ENGINE'] to support postgis on heroku"
     )
