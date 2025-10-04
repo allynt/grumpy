@@ -1,5 +1,5 @@
 """
-URL configuration for config project.
+URL configuration for grumpy project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -37,20 +37,21 @@ admin.site.site_header = settings.ADMIN_SITE_HEADER
 admin.site.site_title = settings.ADMIN_SITE_TITLE
 admin.site.index_title = settings.ADMIN_INDEX_TITLE
 
+admin.autodiscover()
+admin.site.login = secure_admin_login(
+    admin.site.login
+)  # (just use the same login method for the admin)
+
 #################
 # api / swagger #
 #################
 
-# TODO ?
+# NOT USING DRF
 
 #################
 # normal routes #
 #################
 
-admin.autodiscover()
-admin.site.login = secure_admin_login(
-    admin.site.login
-)  # (just use the same login method for the admin)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

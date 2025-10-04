@@ -1,7 +1,8 @@
 from django.views.generic import TemplateView
 
 from grumpy.books.models import Book
-from grumpy.meetings.models import Meeting 
+from grumpy.meetings.models import Meeting
+
 
 class IndexView(TemplateView):
     template_name = "index.html"

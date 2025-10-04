@@ -66,7 +66,7 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 # security, etc. #
 ##################
 
-# ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 #########
