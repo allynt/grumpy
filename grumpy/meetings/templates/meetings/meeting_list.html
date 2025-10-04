@@ -7,31 +7,27 @@
 
 {% block content %}
     
-    <p>
-      Here are some meetings:
-    </p>
-    
-    <ul class="list-group">
-      {% for meeting in meetings %}
-        <li class="list-group-item">
-            {{ meeting.date }} we'll be discussing: <a href="{% url 'book-update' meeting.book.pk %}">"{{ meeting.book }}" by {{meeting.book.author}}</a>
-        </li>
-      {% endfor %}
-    </ul>
-
-  <br/>
-
-  <div class="card  bg-light mb-3">
-    <div class="card-body">
-      <!-- <h5 class="card-title">Info card title</h5> -->
-      <p class="card-text">   
-        {% if user.is_superuser %}
-          Hooray, you can <a href="{% url 'meeting-add' %}">add more meetings</a>!
-        {% endif %}
-      </p>
+    <div class="card">
+        <div class="card-header">
+            Here are some meetings.
+        </div>    
+        <div class="card-body">           
+            <ul class="list-group">
+                {% for meeting in meetings %}
+                    <li class="list-group-item">
+                        On <strong>{{ meeting.date }}</strong> we'll be discussing: <strong>"{{ meeting.book }}"</strong> by <strong>{{meeting.book.author}}</strong>.
+                    </li> 
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-  </div>
-   
-    
-{% endblock content %} 
 
+    <br/>
+
+    {% if user.is_superuser %}
+        <div class="alert alert-success" role="alert">
+            Hooray, you can <a href="{% url 'meeting-add' %}">add more meetings</a>!
+        </div>
+    {% endif %}  
+       
+{% endblock content %} 

@@ -14,8 +14,6 @@
 
 {% block content %}
 
-    <br/>
-
      <div class="card">
         <div class="card-header">
             Hello World.
@@ -30,10 +28,10 @@
                 We all anonymously nominate books to read.  Then one book is selected at random to discuss at the next meeting.
             </p>
             <p class="card-text">
-                So far we have selected <strong>{{ n_read_books }}</strong> books.
-                And there are <strong>{{ n_unread_books }}</strong> books waiting to be read.
+                So far we have selected <strong>{{ n_read_books }}</strong> book{{ n_unread_books|pluralize }}.
+                And there {{ n_unread_books|pluralize:"is,are" }} <strong>{{ n_unread_books }}</strong> book{{ n_unread_books|pluralize }} waiting to be read.
                 {% if n_unread_books > 0 %}
-                    <i>We'll get to them eventually.</i>
+                    <i>We'll get to {{ n_unread_books|pluralize:"it,them" }} eventually.</i>
                 {% endif %}
             </p>
             <p class="card-text">
@@ -47,7 +45,7 @@
                 For more info, check out our <a href="https://www.facebook.com/groups/exmouthgrumpyoldmenbookclub" class="card-link">Facebook Group</a>.
             </p>
             <p class="card-text">
-                That is all 
+                That is all.
             </p>
         </div>
     </div>
