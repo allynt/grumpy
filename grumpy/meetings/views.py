@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 
+from grumpy.meetings.forms import MeetingForm
 from grumpy.meetings.models import Meeting
 from grumpy.books.models import Book
 
@@ -28,16 +29,13 @@ class MeetingListView(ListView):
 
 class MeetingCreateView(UserPassesTestMixin, CreateView):
     model = Meeting
-    fields = [
-        "book",
-        "date",
-        "notes",
-    ]
+    form_class = MeetingForm  # custom form ensures "book" is read-only
     template_name = "meetings/meeting_form.html"
     success_url = reverse_lazy("meeting-list")
 
     def test_func(self):
-        # restrict view to admins only as per https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
+        # restrict view to admins only,
+        # as per https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
         return self.request.user.is_superuser
 
     def get_initial(self):
