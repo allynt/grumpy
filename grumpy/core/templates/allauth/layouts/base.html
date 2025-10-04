@@ -1,3 +1,15 @@
-{% extends "base.html" %}
-
 <!-- just ensuring allauth uses custom app style -->
+
+{% extends "base.html" %}
+ 
+{% load account %}
+{% load i18n %}
+{% load static %}
+{% load tags_settings %}
+
+{% block header %}
+    {{ block.super }}
+    <div id="banner" class="text-center" style="background-color: #150904;">
+        <img class="img-fluid"  src="{% static 'core/img/auth.jpg' %}"/>
+    </div>
+{% endblock header %}
