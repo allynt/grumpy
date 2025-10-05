@@ -38,9 +38,11 @@ admin.site.site_title = settings.ADMIN_SITE_TITLE
 admin.site.index_title = settings.ADMIN_INDEX_TITLE
 
 admin.autodiscover()
-admin.site.login = secure_admin_login(
-    admin.site.login
-)  # (just use the same login method for the admin)
+# commented this out to ensure we use the built-in admin login
+# rather than allauth's login (to circumvent the approval step)
+# admin.site.login = secure_admin_login(
+#     admin.site.login
+# )
 
 #################
 # api / swagger #

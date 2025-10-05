@@ -8,7 +8,7 @@ class GrumpySettingsAdmin(admin.ModelAdmin):
     fields = (
         "allow_signin",
         "allow_signup",
-        "require_verification",
+        "require_approval",
         "password_min_length",
         "password_max_length",
         "password_strength",

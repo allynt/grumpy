@@ -25,9 +25,9 @@ class GrumpySettings(SingletonMixin, models.Model):
         help_text=_("Allow users to register."),
     )
 
-    require_verification = models.BooleanField(
-        default=True,
-        help_text=_("Require a user to be manually verified."),
+    require_approval = models.BooleanField(
+        default=False,
+        help_text=_("Require a user to be manually approved."),
     )
 
     password_min_length = models.PositiveIntegerField(

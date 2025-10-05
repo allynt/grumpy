@@ -9,7 +9,7 @@ from grumpy.users.models import User
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     model = User
-    actions = "toggle_email"
+    actions = ("toggle_approval",)
     add_fieldsets = (
         (
             None,
@@ -19,7 +19,7 @@ class UserAdmin(DjangoUserAdmin):
                     "email",
                     "password1",
                     "password2",
-                    "verified",
+                    "approved",
                 ),
             },
         ),
@@ -28,7 +28,7 @@ class UserAdmin(DjangoUserAdmin):
         (None, {"fields": ("id", "email", "password")}),
         (
             _("General info"),
-            {"fields": ("verified",)},
+            {"fields": ("approved",)},
         ),
         (
             _("Permissions"),
@@ -48,27 +48,25 @@ class UserAdmin(DjangoUserAdmin):
         "email",
         "is_staff",
         "is_active",
-        "verified",
+        "is_approved",
     )
     list_filter = (
         "is_staff",
         "is_active",
-        "verified",
+        "is_approved",
     )
     readonly_fields = ("id",)
     search_fields = ("email",)
     ordering = ("email",)
 
-    @admin.display(description=_("Toggle verification of selected Users"))
-    def toggle_verified_email(self, request, queryset):
-        # doing this cleverly w/ negated F expressions is not supported
+    @admin.display(description=_("Toggle approval of selected Users"))
+    def toggle_approval(self, request, queryset):
+        # TODO: doing this cleverly w/ negated F expressions is not supported
         # (as per: https://code.djangoproject.com/ticket/17186)
-        # queryset.update(verified=not(F("verified")))
+        # queryset.update(is_approved=not(F("is_approved")))
         for obj in queryset:
-            obj.verified = not obj.verified
+            obj.is_approved = not obj.is_approved
             obj.save()
 
-            msg = (
-                f"{obj} {'has not' if not obj.verified_email else 'has'} been verified."
-            )
+            msg = f"{obj} {'not' if not obj.is_approved else ''} approved."
             self.message_user(request, msg)

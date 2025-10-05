@@ -87,8 +87,8 @@ class User(AbstractUser):
         },
     )
 
-    verified = models.BooleanField(
-        default=False, help_text=_("Has this user been verified?")
+    is_approved = models.BooleanField(
+        default=False, help_text=_("Has this user been approved?")
     )
 
     def __str__(self):

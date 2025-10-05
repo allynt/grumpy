@@ -303,6 +303,11 @@ ALLOW_SIGNIN = DynamicSetting(
     True,
 )
 
+REQUIRE_APPROVAL = DynamicSetting(
+    "core.GrumpySettings.require_approval",
+    True,
+)
+
 PASSWORD_MIN_LENGTH = DynamicSetting(
     "core.GrumpySettings.password_min_length",
     8,
