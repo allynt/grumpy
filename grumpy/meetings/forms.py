@@ -13,6 +13,6 @@ class MeetingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # make sure users can't modify an assigned boook
+        # make sure users can't modify an assigned book
         # (or use the widget to see other available books)
         self.fields["book"].disabled = True

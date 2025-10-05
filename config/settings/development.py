@@ -10,14 +10,14 @@ from .base import *
 
 env = environ.Env()
 
-DEBUG = True
+DEBUG = False  # True
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="shhh")
 
 ########
 # apps #
 ########
 
-# TODOD: might want to add `whitenoise.runserver_nostatic` if I decide to use whitenoise in development
+# TODOD: might want to insert `whitenoise.runserver_nostatic` to the head of INSTALLED_APPS if I decide to use whitenoise in development
 # as per https://whitenoise.readthedocs.io/en/latest/django.html#using-whitenoise-in-development
 
 INSTALLED_APPS += []
@@ -34,7 +34,6 @@ STORAGES = {
         "BACKEND": "grumpy.core.storages.LocalStaticStorage"  # "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
-
 
 STATIC_URL = "/static/"
 STATIC_ROOT = ROOT_DIR / "_static"
