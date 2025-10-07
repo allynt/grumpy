@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "colorfield",
     "corsheaders",
+    # no need to make project restful
     # "drf_spectacular",
     # "rest_framework",
 ]
@@ -106,7 +107,7 @@ FIXTURE_DIRS = [
 ]
 
 ########################
-# static & sedia Files #
+# static & media Files #
 ########################
 
 # static & media settings are configured in environment module
@@ -158,7 +159,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # TODO: ADD ADDITIONAL PROCESSORS ?
             ],
         },
     },
@@ -174,7 +174,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    # "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -214,7 +214,7 @@ ACCOUNT_FORMS = {
 ACCOUNT_PREVENT_ENUMERATION = False
 ACCOUNT_SESSION_REMEMBER = None
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "name"
+ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "name"  # (note: don't use a reserved keyword like "username")
 ACCOUNT_LOGIN_METHODS = {
     "email",
 }

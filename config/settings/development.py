@@ -17,7 +17,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="shhh")
 # apps #
 ########
 
-# TODOD: might want to insert `whitenoise.runserver_nostatic` to the head of INSTALLED_APPS if I decide to use whitenoise in development
+# TODOD: might want to insert `whitenoise.runserver_nostatic` to the head of INSTALLED_APPS if I decide to use WhiteNoise in development
 # as per https://whitenoise.readthedocs.io/en/latest/django.html#using-whitenoise-in-development
 
 INSTALLED_APPS += []

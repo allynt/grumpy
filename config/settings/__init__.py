@@ -22,7 +22,7 @@ ENVIRONMENT = env("DJANGO_ENVIRONMENT")
 
 if ENVIRONMENT == EnvironmentTypes.DEVELOPMENT:
     for env_file in glob.glob(str(ROOT_DIR / ".env*")):
-        # variables for development are stored in files
+        # variables for development are stored in ".env" file(s)
         try:
             env.read_env(env_file)
         except Exception as e:
@@ -31,7 +31,7 @@ if ENVIRONMENT == EnvironmentTypes.DEVELOPMENT:
     from config.settings.development import *
 
 elif ENVIRONMENT == EnvironmentTypes.DEPLOYMENT:
-    pass  # variables for deployment are dynamically created on the server
+    pass  # variables for deployment are stored on the server
 
     from config.settings.deployment import *
 
