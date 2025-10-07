@@ -47,8 +47,11 @@ admin.autodiscover()
 
 
 urlpatterns = [
+    # admin...
     path("admin/", admin.site.urls),
+    # auth...
     path("accounts/", include("allauth.urls")),
+    # apps...
     path("", include(core_urlpatterns)),
     path("users/", include(users_urlpatterns)),
     path("books/", include(books_urlpatterns)),
