@@ -1,15 +1,16 @@
-from django.contrib.auth.decorators import login_required
+import logging
+
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 
 from grumpy.books.models import Book
 
+logger = logging.getLogger(__name__)
 
-@method_decorator(login_required, name="dispatch")
-class BookListView(ListView):
+
+class BookListView(LoginRequiredMixin, ListView):
     model = Book
     fields = [
         "title",
@@ -31,7 +32,7 @@ class BookListView(ListView):
         return queryset
 
 
-class BookCreateView(CreateView):
+class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Book
     fields = [
         "title",
@@ -46,8 +47,16 @@ class BookCreateView(CreateView):
         form.instance.owner = current_user.profile
         return super().form_valid(form)
 
+    def test_func(self):
+        # fn to use w/ https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
+        current_user = self.request.user
+        user_can_add_books = current_user.profile.can_add_books
+        if not user_can_add_books:
+            logger.error(f"PermissionDeniedError: {current_user} cannot add books.")
+        return user_can_add_books
 
-class BookUpdateView(UpdateView):
+
+class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Book
     fields = [
         "title",
@@ -57,9 +66,31 @@ class BookUpdateView(UpdateView):
     template_name = "books/book_form.html"
     context_object_name = "book"
 
+    def test_func(self):
+        # fn to use w/ https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
+        current_user = self.request.user
+        current_object = self.get_object()
+        user_can_update_book = current_object.owner == current_user.profile
+        if not user_can_update_book:
+            logger.error(
+                f"PermissionDeniedError: {current_user} cannot update {current_object}."
+            )
+        return user_can_update_book
 
-class BookDeleteView(DeleteView):
+
+class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Book
     context_object_name = "book"
     template_name = "books/book_confirm_delete.html"
     success_url = reverse_lazy("book-list")
+
+    def test_func(self):
+        # fn to use w/ https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
+        current_user = self.request.user
+        current_object = self.get_object()
+        user_can_delete_book = current_object.owner == current_user.profile
+        if not user_can_delete_book:
+            logger.error(
+                f"PermissionDeniedError: {current_user} cannot delete {current_object}."
+            )
+        return user_can_delete_book

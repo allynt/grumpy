@@ -24,7 +24,7 @@ class BookManager(models.Manager):
 
 
 class BookQuerySet(models.QuerySet):
-  
+
     def random(self):
         # if this was an app w/ high traffic where I cared about efficiency,
         # I would do something like https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html
@@ -48,7 +48,7 @@ class Book(models.Model):
                 Lower("author").desc(),
                 name="unique_title_author",
                 violation_error_message="A book with the same title/author combination exists.",
-            )
+            ),
         ]
 
     objects = BookManager.from_queryset(BookQuerySet)()

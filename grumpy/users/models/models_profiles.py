@@ -20,7 +20,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return str(self.user)
 
-    # TODO: THIS NEEDS TO TAKE INTO ACCOUNT book.state
     @property
     def can_add_books(self):
-        return self.books.count() < settings.MAX_FREE_BOOKS
+        return self.books.unread().count() < settings.MAX_FREE_BOOKS
