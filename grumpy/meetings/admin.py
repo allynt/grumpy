@@ -20,6 +20,7 @@ DEFAULT_LOCATION = Location(50.618309, -3.410880)
 class MeetingAdmin(gis_admin.GISModelAdmin):
     fields = (
         (
+            "id",
             "book",
             "date",
             "location",
@@ -30,6 +31,7 @@ class MeetingAdmin(gis_admin.GISModelAdmin):
         "date",
         "book",
     )
+    readonly_fields = ("id",)
 
     gis_widget_kwargs = {
         "attrs": {
