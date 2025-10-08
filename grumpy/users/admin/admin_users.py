@@ -62,8 +62,8 @@ class UserAdmin(DjangoUserAdmin):
     @admin.display(description=_("Toggle approval of selected Users"))
     def toggle_approval(self, request, queryset):
         # TODO: doing this cleverly w/ negated F expressions is not supported
-        # (as per: https://code.djangoproject.com/ticket/17186)
-        # queryset.update(is_approved=not(F("is_approved")))
+        # (as per: https://code.djangoproject.com/ticket/16211)
+        # queryset.update(is_approved=~F("is_approved"))
         for obj in queryset:
             obj.is_approved = not obj.is_approved
             obj.save()

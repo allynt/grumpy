@@ -6,8 +6,8 @@ from grumpy.core.models import SiteProfile
 
 def post_save_site_handler(sender, *args, **kwargs):
     """
-    If a Site has just been created,
-    then the corresponding Profile must also be created,
+    If a Site has just been created, then
+    the corresponding Profile must also be created.
     """
     created = kwargs.get("created", False)
     instance = kwargs.get("instance", None)

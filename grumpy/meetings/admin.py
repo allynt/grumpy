@@ -13,8 +13,7 @@ class Location:
     zoom: int = 12
 
 
-DEFAULT_LOCATION = Location(50.619751, -3.413410)
-
+DEFAULT_LOCATION = Location(50.618309, -3.410880)
 
 @admin.register(Meeting)
 class MeetingAdmin(gis_admin.GISModelAdmin):

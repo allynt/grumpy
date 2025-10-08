@@ -6,8 +6,8 @@ from grumpy.users.models import UserProfile
 
 def post_save_user_handler(sender, *args, **kwargs):
     """
-    If a User has just been created,
-    then the corresponding Profile must also be created,
+    If a User has just been created, then
+    the corresponding Profile must also be created.
     """
     created = kwargs.get("created", False)
     instance = kwargs.get("instance", None)

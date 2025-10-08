@@ -27,15 +27,13 @@ INSTALLED_APPS += []
 # databases #
 #############
 
-# Hacky fix for deploymennt; when heroku provisions a database,
-# it automatically exports `DATABASE_URL` w/ the "postgres" prefix,
-# b/c that's automatic, I can't change it...
-# even though I've enabled the postgist extensions.
-# (the django-on-heroku package could fix this, but that seems a bit heavyweight)
-# So I manually change things here
+# Hacky fix for deploymennt: when heroku provisions a database, it automatically
+# exports `DATABASE_URL` w/ the "postgres" prefix; b/c that's automatic, I can't 
+# change it - even though I've enabled the postgist extensions. `django-on-heroku`
+# could fix this, but that seems pretty heavyweight. So I manually tweak things here
 
 USE_POSTGIS = env("DJANGO_DATABASE_SCHEME", default="postgres") == "postgis"
-logger.info(f"***** USE_POSTGIS = {USE_POSTGIS} *****")
+logger.info(f"USE_POSTGIS = {USE_POSTGIS}")
 if USE_POSTGIS:
     DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
     logger.info(
@@ -47,7 +45,8 @@ if USE_POSTGIS:
 # static & media Files #
 ########################
 
-# TODO: I'M USING WhiteNoise; SHOULD I USE S3 (VIA Bucketeer) INSTEAD ?
+# I'M USING WhiteNoise WHICH SEEMS GOOD ENOUGH
+# BUT I _COULD_ USE S3 (VIA Bucketeer) INSTEAD
 
 STORAGES = {
     "default": {"BACKEND": "gdjango.core.files.storage.FileSystemStorage"},
@@ -66,7 +65,8 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 # security, etc. #
 ##################
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOST = env("DJANGO_HOST", default="*")
+ALLOWED_HOSTS = [ALLOWED_HOST]
 CORS_ALLOW_ALL_ORIGINS = True
 
 #########
@@ -77,11 +77,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-#######
-# API #
-#######
-
-# TODO ?
 
 ###########
 # logging #

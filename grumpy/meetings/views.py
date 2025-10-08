@@ -36,6 +36,7 @@ class MeetingCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         # restrict view to admins only,
         # as per https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
+        # TODO: EVEN THOUGH THIS IS THE RECOMMENDED METHOD, IT'S A BIT OBFUSCATED; REPLACE W/ DECORATOR
         return self.request.user.is_superuser
 
     def get_initial(self):
