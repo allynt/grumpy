@@ -15,6 +15,7 @@ class Location:
 
 DEFAULT_LOCATION = Location(50.618309, -3.410880)
 
+
 @admin.register(Meeting)
 class MeetingAdmin(gis_admin.GISModelAdmin):
     fields = (

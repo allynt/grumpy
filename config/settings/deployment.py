@@ -28,7 +28,7 @@ INSTALLED_APPS += []
 #############
 
 # Hacky fix for deploymennt: when heroku provisions a database, it automatically
-# exports `DATABASE_URL` w/ the "postgres" prefix; b/c that's automatic, I can't 
+# exports `DATABASE_URL` w/ the "postgres" prefix; b/c that's automatic, I can't
 # change it - even though I've enabled the postgist extensions. `django-on-heroku`
 # could fix this, but that seems pretty heavyweight. So I manually tweak things here
 

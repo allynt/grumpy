@@ -71,3 +71,6 @@ Failure to do this may result in permission erors when Django tries to copy stat
    1. Only the admin can add a new meeting.  A new meeting is randomly assigned an _unread_ book; this cannot be edited.
 4. There is also a help page with some helpful information.
 5. That's it.  There's not much to it.
+
+shortcut: https://bit.ly/grumpybookclub
+url: https://grumpy-38764c2c607e.herokuapp.com/

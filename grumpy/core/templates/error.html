@@ -1,0 +1,31 @@
+
+
+{% extends "base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+{% load tags_settings %}
+
+{% block header %}
+    {{ block.super }}
+    <div id="banner" class="text-center" style="background-color: #150904;">
+        <img class="img-fluid"  src="{% static 'core/img/error.jpg' %}"/>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <div class="card border-danger mb-3">
+        <div class="card-header text-danger">
+            {% if title %}
+                {{ title }}
+            {% else %}
+                Something has gone a bit wrong.
+            {% endif %}
+        </div>    
+        <div class="card-body text-danger">
+            {{ msg }}
+        </div>
+    </div>
+
+{% endblock content %}

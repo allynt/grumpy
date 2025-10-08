@@ -10,7 +10,7 @@ from .base import *
 
 env = environ.Env()
 
-DEBUG = False  # True
+DEBUG = True
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="shhh")
 
 ########

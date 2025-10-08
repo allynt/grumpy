@@ -7,6 +7,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 
 from django.conf import settings
+from django.conf.urls import handler400, handler403, handler404, handler500
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
@@ -58,6 +59,12 @@ urlpatterns = [
     path("meetings/", include(meetings_urlpatterns)),
 ]
 
+# errors
+handler400 = "grumpy.core.views.bad_request_view"
+handler403 = "grumpy.core.views.permission_denied_view"
+handler404 = "grumpy.core.views.page_not_found_view"
+handler500 = "grumpy.core.views.error_view"
+
 # local static & media files...
 if settings.ENVIRONMENT == EnvironmentTypes.DEVELOPMENT:
     urlpatterns += static(
@@ -71,7 +78,32 @@ if settings.ENVIRONMENT == EnvironmentTypes.DEVELOPMENT:
 
 if settings.DEBUG:
 
-    # TODO: error pages
-    # TODO: profiling pages
+    # error pages...
+    from functools import partial
+    from importlib import import_module
+    from django.http import (
+        HttpResponseBadRequest,
+        HttpResponseForbidden,
+        HttpResponseNotFound,
+    )
+    from grumpy.core.utils import import_callable
+
+    urlpatterns += [
+        path(
+            "400/",
+            partial(import_callable(handler400), exception=HttpResponseBadRequest()),
+        ),
+        path(
+            "403/",
+            partial(import_callable(handler403), exception=HttpResponseForbidden()),
+        ),
+        path(
+            "404/",
+            partial(import_callable(handler404), exception=HttpResponseNotFound()),
+        ),
+        path("500/", partial(import_callable(handler500), exception=None)),
+    ]
+
+    # TODO: profiling pages...
 
     pass

@@ -214,7 +214,9 @@ ACCOUNT_FORMS = {
 ACCOUNT_PREVENT_ENUMERATION = False
 ACCOUNT_SESSION_REMEMBER = None
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = "name"  # (note: don't use a reserved keyword like "username")
+ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = (
+    "name"  # (note: don't use a reserved keyword like "username")
+)
 ACCOUNT_LOGIN_METHODS = {
     "email",
 }
