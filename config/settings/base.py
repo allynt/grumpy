@@ -66,6 +66,7 @@ THIRD_PARTY_APPS = [
     # no need to make project restful
     # "drf_spectacular",
     # "rest_framework",
+    "bootstrap_datepicker_plus",
 ]
 
 LOCAL_APPS = [
