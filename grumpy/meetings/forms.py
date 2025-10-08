@@ -2,6 +2,8 @@ from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django import forms
 from grumpy.meetings.models import Meeting
 
+DATETIME_FORMAT_CODE = "YYYY-MM-DD HH:MM"
+
 
 class MeetingForm(forms.ModelForm):
     class Meta:
@@ -14,7 +16,12 @@ class MeetingForm(forms.ModelForm):
         widgets = {
             # using 3rd party DatePicker support
             # b/c I can't be bothered to write my own
-            "date": DateTimePickerInput(),
+            "date": DateTimePickerInput(
+                options={
+                    "format": DATETIME_FORMAT_CODE,
+                    "showTodayButton": False,
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):

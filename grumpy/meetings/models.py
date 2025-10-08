@@ -6,7 +6,7 @@ from django.db.models.functions import Now
 
 from grumpy.books.models import Book
 
-DATE_FORMAT_CODE = "%d %B %Y @ %I:%M"
+DATETIME_FORMAT_CODE = "%d %B %Y @ %I:%M"
 
 
 class MeetingManager(models.Manager):
@@ -43,5 +43,5 @@ class Meeting(gis_models.Model):
     )
 
     def __str__(self):
-        datetime_format_string = self.date.strftime(DATE_FORMAT_CODE)
+        datetime_format_string = self.date.strftime(DATETIME_FORMAT_CODE)
         return f'{datetime_format_string} - "{self.book}"'
