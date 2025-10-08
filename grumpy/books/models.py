@@ -24,7 +24,7 @@ class BookManager(models.Manager):
 
 
 class BookQuerySet(models.QuerySet):
-  
+
     def random(self):
         # if this was an app w/ high traffic where I cared about efficiency,
         # I would do something like https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html
