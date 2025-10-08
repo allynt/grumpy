@@ -46,7 +46,7 @@ class Book(models.Model):
             )
         ]
 
-    objects = BookManager.from_queryset(BookQuerySet)
+    objects = BookManager.from_queryset(BookQuerySet)()
 
     id = models.UUIDField(
         primary_key=True,

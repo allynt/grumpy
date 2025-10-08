@@ -21,7 +21,7 @@
               {% for book in books %}
                 <a href="{% url 'book-update' book.pk %}"  class="d-flex list-group-item justify-content-between align-items-center">
                   "{{ book.title }}" by {{ book.author }}
-                  {# TODO: MAKE THIS A BIT CLEANER #}
+                  {# TODO: MAKE THIS A BIT CLEANER #}                  
                   {% with book.status.value as status %}
                     {% if status == "Read" %}
                       <span class="badge badge-pill badge-secondary bg-success">{{status}}</span>

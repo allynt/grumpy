@@ -29,7 +29,7 @@
             </p>
             <p class="card-text">
                 So far we have read <strong>{{ n_read_books }}</strong> book{{ n_read_books|pluralize }}.
-                And there {{ n_unread_books|pluralize:"is,are" }} <strong>{{ n_unread_books }}</strong> book{{ n_unread_books|pluralize }} waiting to be read.
+                And there {{ n_unread_books|pluralize:"is,are" }} <strong>{{ n_unread_books }}</strong>  unread book{{ n_unread_books|pluralize }}.
                 {% if n_unread_books > 0 %}
                     <i>We'll get to {{ n_unread_books|pluralize:"it,them" }} eventually.</i>
                 {% endif %}
