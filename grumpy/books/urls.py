@@ -10,6 +10,6 @@ from grumpy.books.views import (
 urlpatterns = [
     path("", BookListView.as_view(), name="book-list"),
     path("add/", BookCreateView.as_view(), name="book-add"),
-    path("<int:pk>/", BookUpdateView.as_view(), name="book-update"),
-    path("<int:pk>/delete/", BookDeleteView.as_view(), name="book-delete"),
+    path("<uuid:pk>/", BookUpdateView.as_view(), name="book-update"),
+    path("<uuid:pk>/delete/", BookDeleteView.as_view(), name="book-delete"),
 ]

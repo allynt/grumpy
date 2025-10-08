@@ -33,14 +33,14 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("notes", models.TextField(blank=True, null=True)),
-                (
-                    "book",
-                    models.OneToOneField(
-                        on_delete=django.db.models.deletion.PROTECT,
-                        related_name="meeting",
-                        to="books.book",
-                    ),
-                ),
+                # (
+                #     "book",
+                #     models.OneToOneField(
+                #         on_delete=django.db.models.deletion.PROTECT,
+                #         related_name="meeting",
+                #         to="books.book",
+                #     ),
+                # ),
             ],
             options={
                 "verbose_name": "Meeting",

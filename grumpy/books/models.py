@@ -1,3 +1,5 @@
+import uuid
+
 from enum import Enum
 
 from django.conf import settings
@@ -45,6 +47,12 @@ class Book(models.Model):
         ]
 
     objects = BookManager.from_queryset(BookQuerySet)
+
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
 
     title = models.CharField(max_length=255, blank=False, null=False)
     author = models.CharField(max_length=255, blank=False, null=False)

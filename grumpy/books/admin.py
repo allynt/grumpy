@@ -10,12 +10,11 @@ class BookAdmin(admin.ModelAdmin):
     ]  # IMPORTANT: KEEP THIS HIDDEN TO RETAIN ANONYMITY
     fields = (
         (
+            "id",
             "title",
             "author",
             "description",
         ),
     )
-    list_display = (
-        "title",
-        "author",
-    )
+    readonly_fields = ("id",)
+    list_display = ("id",)
