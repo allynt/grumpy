@@ -14,7 +14,7 @@ class IndexView(TemplateView):
             {
                 "n_unread_books": books.filter(meeting__isnull=True).count(),
                 "n_read_books": books.filter(meeting__isnull=False).count(),
-                "meeting": Meeting.objects.first(),
+                "meeting": Meeting.objects.future().last(),
             }
         )
         return context

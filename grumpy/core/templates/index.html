@@ -28,7 +28,7 @@
                 We all anonymously nominate books to read.  Then one book is selected at random to discuss at the next meeting.
             </p>
             <p class="card-text">
-                So far we have selected <strong>{{ n_read_books }}</strong> book{{ n_unread_books|pluralize }}.
+                So far we have read <strong>{{ n_read_books }}</strong> book{{ n_read_books|pluralize }}.
                 And there {{ n_unread_books|pluralize:"is,are" }} <strong>{{ n_unread_books }}</strong> book{{ n_unread_books|pluralize }} waiting to be read.
                 {% if n_unread_books > 0 %}
                     <i>We'll get to {{ n_unread_books|pluralize:"it,them" }} eventually.</i>

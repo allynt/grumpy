@@ -14,8 +14,12 @@ class MeetingManager(models.Manager):
 
 
 class MeetingQuerySet(models.QuerySet):
-    # TODO: future/past
-    pass
+
+    def future(self):
+        return self.filter(status=Meeting.MeetingStatus.FUTURE)
+
+    def past(self):
+        return self.filter(status=Meeting.MeetingStatus.PAST)
 
 
 class Meeting(gis_models.Model):
@@ -25,7 +29,11 @@ class Meeting(gis_models.Model):
         verbose_name_plural = "Meetings"
         ordering = ["-date"]
 
-    objects = MeetingManager.from_queryset(MeetingQuerySet)
+    objects = MeetingManager.from_queryset(MeetingQuerySet)()
+
+    class MeetingStatus(models.TextChoices):
+        PAST = "PAST", "Past"
+        FUTURE = "FUTURE", "Future"
 
     id = models.UUIDField(
         primary_key=True,
@@ -36,7 +44,10 @@ class Meeting(gis_models.Model):
     date = models.DateTimeField(db_default=Now())
     location = gis_models.PointField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-    # status: enum FUTURE, PAST
+
+    status = models.CharField(
+        max_length=16, choices=MeetingStatus.choices, default=MeetingStatus.FUTURE
+    )
 
     book = models.OneToOneField(
         Book, blank=False, null=False, related_name="meeting", on_delete=models.PROTECT

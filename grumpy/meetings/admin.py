@@ -23,6 +23,7 @@ class MeetingAdmin(gis_admin.GISModelAdmin):
             "id",
             "book",
             "date",
+            "status",
             "location",
             "notes",
         ),
@@ -30,7 +31,9 @@ class MeetingAdmin(gis_admin.GISModelAdmin):
     list_display = (
         "date",
         "book",
+        "status",
     )
+    list_filter = ("status",)
     readonly_fields = ("id",)
 
     gis_widget_kwargs = {

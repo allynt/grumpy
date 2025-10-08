@@ -14,8 +14,28 @@
         <div class="card-body">           
             <ul class="list-group">
                 {% for meeting in meetings %}
-                    <li class="list-group-item">
-                        On <strong>{{ meeting.date }}</strong> we'll be discussing: <strong>"{{ meeting.book }}"</strong> by <strong>{{meeting.book.author}}</strong>.
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            On <strong>{{ meeting.date }}</strong> 
+                            {% if meeting.status == meeting.MeetingStatus.PAST %} 
+                                we discussed:
+                            {% elif meeting.status == meeting.MeetingStatus.FUTURE %} 
+                                we'll be discussing:
+                            {% else %}
+                                we'll be discussing:
+                            {% endif %}
+                            <strong>"{{ meeting.book }}"</strong> by <strong>{{meeting.book.author}}</strong>.
+                        </span>
+                        <!-- <span class="badge badge-pill
+                            {% if meeting.status == meeting.MeetingStatus.PAST %} 
+                                bg-warning 
+                            {% elif meeting.status == meeting.MeetingStatus.FUTURE %} 
+                                bg-info 
+                            {% else %}
+                                bg-secondary
+                            {% endif %}">
+                                {{ meeting.status }}
+                        </span> -->
                     </li> 
                 {% endfor %}
             </ul>

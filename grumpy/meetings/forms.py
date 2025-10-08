@@ -11,6 +11,7 @@ class MeetingForm(forms.ModelForm):
         fields = [
             "book",
             "date",
+            "status",
             "notes",
         ]
         widgets = {
