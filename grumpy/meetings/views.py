@@ -40,7 +40,5 @@ class MeetingCreateView(UserPassesTestMixin, CreateView):
         return self.request.user.is_superuser
 
     def get_initial(self):
-        # unread_books = Book.objects.unread()
-        unread_books = Book.objects.filter(meeting__isnull=True)
-        random_unread_book = unread_books.order_by("?").first()
+        random_unread_book = Book.objects.unread().random()
         return {"book": random_unread_book}
