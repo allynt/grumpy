@@ -17,6 +17,11 @@ class UserProfile(models.Model):
         related_name="profile",
     )
 
+    is_special = models.BooleanField(
+        default=False,
+        help_text=_("A special user can create and edit meetings."),
+    )
+
     def __str__(self):
         return str(self.user)
 
