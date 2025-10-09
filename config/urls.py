@@ -15,6 +15,7 @@ from django.urls import include, path
 from allauth.account.decorators import secure_admin_login
 
 from config.types import EnvironmentTypes
+from grumpy.users import views as views_auth
 
 from grumpy.core.urls import urlpatterns as core_urlpatterns
 from grumpy.users.urls import urlpatterns as users_urlpatterns
@@ -51,6 +52,9 @@ urlpatterns = [
     # admin...
     path("admin/", admin.site.urls),
     # auth...
+    path(
+        "accounts/login/", views_auth.login_view, name="account_login"
+    ),  # override built-in login_view
     path("accounts/", include("allauth.urls")),
     # apps...
     path("", include(core_urlpatterns)),

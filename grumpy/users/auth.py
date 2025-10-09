@@ -16,6 +16,9 @@ class AccountAdapter(DefaultAccountAdapter):
     def is_open_for_signup(self, request):
         return settings.ALLOW_SIGNUP
 
+    def is_open_for_signin(self, request):
+        return settings.ALLOW_SIGNIN
+
     def authenticate(self, request, **credentials):
         user = super().authenticate(request, **credentials)
         if user is not None:
