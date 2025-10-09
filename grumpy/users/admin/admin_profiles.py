@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.db.models import F
 from django.urls import resolve
+from django.utils.translation import gettext_lazy as _
 
 from grumpy.core.admin import (
     get_clickable_fk_for_list_display,
@@ -16,10 +18,14 @@ class UserProfileAdmin(
     # CannotDeleteModelAdminBase,  # (see `has_delete_permission` below)
     admin.ModelAdmin,
 ):
+    actions = ("toggle_is_special",)
     list_display = (
         "get_name_for_list_display",
         "get_user_for_list_display",
+        "is_special",
     )
+    list_filter = ("is_special",)
+    readonly_fields = ("user",)
     search_fields = ("user__email",)
 
     @admin.display(description="PROFILE")
@@ -41,3 +47,7 @@ class UserProfileAdmin(
             "admin:users_user_change",
             "admin:users_user_delete",
         ]
+
+    @admin.display(description=_("Toggle specialness of selected Users"))
+    def toggle_is_special(self, request, queryset):
+        queryset.update(is_special=~F("is_special"))
