@@ -48,7 +48,7 @@ class Book(models.Model):
                 Lower("author").desc(),
                 name="unique_title_author",
                 violation_error_message="A book with the same title/author combination exists.",
-            )
+            ),
         ]
 
     objects = BookManager.from_queryset(BookQuerySet)()
