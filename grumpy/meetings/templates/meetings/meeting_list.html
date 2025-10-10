@@ -44,9 +44,17 @@
 
     <br/>
 
-    {% if user.is_superuser %}
+    {% if n_unread_books == 0 %}
+        <div class="alert alert-info" role="alert">
+            There are no unread books, so a new meeting cannot be added.
+        </div>    
+    {% elif user.profile.is_special %}
         <div class="alert alert-success" role="alert">
             Hooray, you can <a href="{% url 'meeting-add' %}">add more meetings</a>!
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Sorry, you cannot add any new meetings.
         </div>
     {% endif %}  
        
