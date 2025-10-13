@@ -84,28 +84,27 @@ if settings.DEBUG:
 
     # error pages...
     from functools import partial
-    from importlib import import_module
     from django.http import (
         HttpResponseBadRequest,
         HttpResponseForbidden,
         HttpResponseNotFound,
     )
-    from grumpy.core.utils import import_callable
+    from grumpy.core.utils import get_attr_from_path
 
     urlpatterns += [
         path(
             "400/",
-            partial(import_callable(handler400), exception=HttpResponseBadRequest()),
+            partial(get_attr_from_path(handler400), exception=HttpResponseBadRequest()),
         ),
         path(
             "403/",
-            partial(import_callable(handler403), exception=HttpResponseForbidden()),
+            partial(get_attr_from_path(handler403), exception=HttpResponseForbidden()),
         ),
         path(
             "404/",
-            partial(import_callable(handler404), exception=HttpResponseNotFound()),
+            partial(get_attr_from_path(handler404), exception=HttpResponseNotFound()),
         ),
-        path("500/", partial(import_callable(handler500), exception=None)),
+        path("500/", partial(get_attr_from_path(handler500), exception=None)),
     ]
 
     # TODO: profiling pages...
