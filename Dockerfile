@@ -1,48 +1,49 @@
-# FROM phusion/baseimage:noble-1.0.2
-FROM phusion/baseimage:jammy-1.0.1
-
-# Create the app user
-# Best practice is that processes within containers shouldn't run as root
-# because there are often bugs found in the Linux kernel which allows container-escape exploits by "root" users inside
-# the container. So we run our services as this user instead.
-ENV APP_HOME=/home/app
-RUN useradd -ms /bin/bash app && usermod -aG www-data app
-
-# install dependencies...
-RUN install_clean build-essential software-properties-common \
-    python3 python3-dev python3-setuptools python3-wheel python3-pip \
-    python3-gdal python3-venv python-is-python3 \
-    postgresql-client python3-psycopg2 \
-    curl git gpg htop less nginx vim \
-    figlet toilet 
-# RUN pip install --upgrade pip
-# RUN pip install --upgrade poetry
-RUN python -m pip install -U pip
-# RUN pip install pdm --no-cache-dir
+FROM python:3.12-slim-trixie
 
 # environment variables
+ENV APP_HOME=/app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PROJECT_ENVIRONMENT=$APP_HOME/.venv
 
-ENV PYTHONWRITEBYTECODE=1
-ENV PYTHONBUFFERED=1
-
-# ENV POETRY_VIRTUALENVS_IN_PROJECT=1
-# ENV POETRY_VIRTUALENVS_OPTIONS_ALWAYS_COPY=1
-
-# all services are off by default; they are explicitly enabled at runtime
-ENV ENABLE_CELERY=0
-ENV ENABLE_DJANGO=0
-ENV ENABLE_UWSGI=0
-
-USER app
+# set work directory
 WORKDIR $APP_HOME
 
-# copy runtime scripts...
-COPY --chown=root:root run-django.sh $APP_HOME/
-#COPY --chown=root:root run-celery.sh $APP_HOME/
-#COPY --chown=root:root run-uwsgi.sh $APP_HOME/
+# install system dependencies
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+    build-essential netcat-traditional \
+    python-is-python3 python3-gdal python3-psycopg2 \
+    curl git vim figlet toilet
+RUN apt-get clean
 
-# run startup script as per https://github.com/phusion/baseimage-docker#running_startup_scripts
+# install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# create non-root user (uid & gid are set in ".env" -> "docker-compose.yml" -> "entrypoint.sh")
+RUN mkdir -p /app 
+RUN groupadd appuser 
+RUN useradd -ms /bin/bash -g appuser appuser
+RUN chown --recursive appuser:appuser /app
+
+# switch to new user (so that files created by uv below aren't owned by root)
+USER appuser
+
+# synchronise project dependencies
+# (have to copy files 1st b/c this runs  _before_ the mount in docker-compose)
+COPY pyproject.toml uv.lock ./
+RUN --mount=type=cache,target=/user/home/.cache \
+    uv sync --all-groups --frozen --no-install-project
+
+    # not sure if it makes sense to bind these or just copy them (as above) ?
+    # --mount=type=bind,source=entrypoint.sh,target=entrypoint.sh      \
+    # --mount=type=cache,target=/home/appuser/.cache               \
+    
+# switch back to root (in-case I need to do su stuff in "entrypoint.sh")
 USER root
-RUN mkdir -p /etc/my_init.d
-COPY startup.sh /etc/my_init.d/startup.sh
 
+# run entrypoint script
+COPY ./entrypoint.sh .
+ENTRYPOINT ["/app/entrypoint.sh"]

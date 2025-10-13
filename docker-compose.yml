@@ -13,19 +13,18 @@ services:
       - grumpy
 
   grumpy-server:
-    build:
+    build: 
       context: .
+    command: uv run manage.py runserver 0.0.0.0:8000
     tty: true
-    env_file:
-      - .env
     environment:
-      ENABLE_DJANGO: 1
       DJANGO_SETTINGS_MODULE: config.settings
     volumes:
-#      - ./server:/home/app/server
-      - .:/home/app
+     - ./:/app/
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     networks:
       - grumpy
 
