@@ -22,4 +22,21 @@ dependencies = [
 [dependency-groups]
 dev = [
     "black>=25.9.0",
+    "factory-boy>=3.3.3",
+    "pytest>=8.4.2",
+    "pytest-django>=4.11.1",
+    "pytest-sugar>=1.1.1",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+addopts = "--no-migrations"
+python_files = [
+    "tests.py",
+    "test_*.py",
+    "*_tests.py",
+]
+testpaths = [
+    "config",
+    "grumpy",
 ]
