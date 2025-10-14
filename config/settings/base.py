@@ -310,6 +310,11 @@ REQUIRE_APPROVAL = DynamicSetting(
     True,
 )
 
+NOTIFY_SIGNUPS = DynamicSetting(
+    "core.GrumpySettings.notify_signups",
+    True,
+)
+
 PASSWORD_MIN_LENGTH = DynamicSetting(
     "core.GrumpySettings.password_min_length",
     8,

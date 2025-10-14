@@ -1,5 +1,7 @@
 from django import forms
 from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import mail_managers
 from django.utils.encoding import force_str
 
 from allauth.account import app_settings as auth_app_settings
@@ -40,3 +42,19 @@ class AccountAdapter(DefaultAccountAdapter):
             name=prefix.strip().lstrip("[").rstrip("]")
         )
         return formatted_prefix + force_str(subject)
+
+    def save_user(self, request, user, form, commit=True):
+        """
+        Saves a new User instance from the signup form / serializer.
+        Overriding to send a notification email.  Using this adapter
+        instead of signals so that the notification is only sent when
+        a user is added via the signup form (as opposed to the shell or admin).
+        """
+
+        saved_user = super().save_user(request, user, form, commit=commit)
+        if commit and settings.NOTIFY_SIGNUPS:
+            subject = super().format_email_subject(f"new user signup: {saved_user}")
+            message = f"User {saved_user.email} signed up for an account at {get_current_site(request)}."
+            mail_managers(subject, message, fail_silently=True)
+
+        return saved_user
