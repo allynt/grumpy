@@ -52,7 +52,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Email #
 #########
 
+# in development, just use the console for email
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+SERVER_EMAIL = PROJECT_EMAIL.format(role="grumpyoldmensbookclub")
+DEFAULT_FROM_EMAIL = (
+    f"{PROJECT_NAME} <{PROJECT_EMAIL.format(role='grumpyoldmensbookclub')}>"
+)
 
 ###########
 # logging #

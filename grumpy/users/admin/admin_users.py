@@ -19,7 +19,7 @@ class UserAdmin(DjangoUserAdmin):
                     "email",
                     "password1",
                     "password2",
-                    "approved",
+                    "is_approved",
                 ),
             },
         ),
@@ -28,7 +28,7 @@ class UserAdmin(DjangoUserAdmin):
         (None, {"fields": ("id", "email", "password")}),
         (
             _("General info"),
-            {"fields": ("approved",)},
+            {"fields": ("is_approved",)},
         ),
         (
             _("Permissions"),

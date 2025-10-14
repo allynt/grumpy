@@ -61,12 +61,12 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
+    "bootstrap_datepicker_plus",
     "colorfield",
     "corsheaders",
     # no need to make project restful
     # "drf_spectacular",
     # "rest_framework",
-    "bootstrap_datepicker_plus",
 ]
 
 LOCAL_APPS = [
@@ -134,7 +134,7 @@ ADMIN_SITE_HEADER = f"{PROJECT_NAME} administrative console"
 ADMIN_SITE_TITLE = f"{PROJECT_NAME} adminstrative console"
 ADMIN_INDEX_TITLE = f"Welcome to the {PROJECT_NAME} adminsitration console"
 
-ADMINS = [(PROJECT_NAME, PROJECT_EMAIL.format(role="grumpy"))]
+ADMINS = [(PROJECT_NAME, PROJECT_EMAIL.format(role="grumpyoldmensbookclub"))]
 MANAGERS = ADMINS
 
 #############
@@ -270,9 +270,8 @@ ALLOWED_HOSTS = ["*"]  # redefined in environment module
 # further email settins (like backend) configured in environment module
 
 EMAIL_TIMEOUT = 60
-
-SERVER_EMAIL = PROJECT_EMAIL.format(role="grumpy-info")
-DEFAULT_FROM_EMAIL = f"{PROJECT_NAME} <{PROJECT_EMAIL.format(role='grumpy-info')}>"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 #######
 # API #

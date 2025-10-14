@@ -73,10 +73,19 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Email #
 #########
 
-# TODO
+# in deployment, use gmail SMTP
+# (this is a bit naughty... but it's free)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = env("DJANGO_EMAIL_HOST", default="smtp.email.com")
+EMAIL_PORT = env("DJANGO_EMAIL_PORT", default="587")
+EMAIL_HOST_USER = env("DJANGO_EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("DJANGO_EMAIL_HOST_PASSWORD")
 
+SERVER_EMAIL = PROJECT_EMAIL.format(role="grumpyoldmensbookclub")
+DEFAULT_FROM_EMAIL = (
+    f"{PROJECT_NAME} <{PROJECT_EMAIL.format(role='grumpyoldmensbookclub')}>"
+)
 
 ###########
 # logging #

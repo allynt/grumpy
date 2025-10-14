@@ -3,6 +3,7 @@ from . import factories
 
 from grumpy.core.models import GrumpySettings
 
+
 @pytest.mark.django_db
 class TestGrumpySettings:
 
