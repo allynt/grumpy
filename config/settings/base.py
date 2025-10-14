@@ -200,6 +200,7 @@ AUTHENTICATION_BACKENDS = [
 # allauth stuff...
 
 ACCOUNT_ADAPTER = "grumpy.users.auth.AccountAdapter"
+ACCOUNT_CHANGE_EMAIL = True  # (prevents having more than 1 email)
 ACCOUNT_FORMS = {
     "add_email": "allauth.account.forms.AddEmailForm",
     "change_password": "allauth.account.forms.ChangePasswordForm",
@@ -212,22 +213,21 @@ ACCOUNT_FORMS = {
     "signup": "allauth.account.forms.SignupForm",
     "user_token": "allauth.account.forms.UserTokenForm",
 }
+ACCOUNT_LOGIN_METHODS = {
+    "email",
+}
+ACCOUNT_LOGIN_ON_EMAIL = False
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
+ACCOUNT_EMAIL_NOTIFICATIONS = True  # False
+ACCOUNT_EMAIL_SUBJECT_PREFIX = PROJECT_NAME
+ACCOUNT_EMAIL_VERIFICATION = "optional"  # "mandatory"
+ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True
 ACCOUNT_PREVENT_ENUMERATION = False
 ACCOUNT_SESSION_REMEMBER = None
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = (
     "name"  # (note: don't use a reserved keyword like "username")
 )
-ACCOUNT_LOGIN_METHODS = {
-    "email",
-}
-ACCOUNT_LOGIN_ON_EMAIL = False
-ACCOUNT_LOGIN_ON_PASSWORD_RESET = False
-ACCOUNT_EMAIL_VERIFICATION = "optional"  # "mandatory"
-ACCOUNT_EMAIL_VERIFICATION_SUPPORTS_RESEND = True
-ACCOUNT_EMAIL_SUBJECT_PREFIX = PROJECT_NAME
-ACCOUNT_EMAIL_NOTIFICATIONS = True  # False
-ACCOUNT_CHANGE_EMAIL = True  # (prevents having more than 1 email)
 ACCOUNT_USER_DISPLAY = "grumpy.users.auth.get_user_display"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
