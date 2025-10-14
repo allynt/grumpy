@@ -27,18 +27,18 @@
                     <li>
                         Sign up to get an account
                         <ul>
-                            <li>At the moment, there is no email verification; I'll set that up later</li>
+                            <li>At the moment, there is no email verification.</li>
                         </ul>
                     </li>
                     <li>
                         Use the navigation links above to look at <strong>books</strong> and <strong>meetings</strong>
                     </li>
                     <li>
-                        You can only see <em>your</em> books.  This keeps things anonymous.
+                        You can only see <em>your</em> books.  This keeps things <span class="text-uppercase">anonymous</span>.
                     </li>
                     <li>
                         Once signed in, you can add books.  
-                        At any given time, you can only have {% settings_value 'MAX_FREE_BOOKS' %} books that aren't assigned to a meeting.
+                        At any given time, you can only have <strong>{% settings_value 'MAX_FREE_BOOKS' %}</strong> books that aren't assigned to a meeting.
                         Don't worry, the "Add more books" link will appear / dissappear as neeeded.
                         You can update any of your books at any time.
                         You can delete any of your books so long as it hasn't been assigned to a meeting.
@@ -47,8 +47,14 @@
                         You can look at a list of all meetings, past and present.
                         <ul>
                             <li>
-                                Only the admin (<em>not you</em>) can create a new meeting.  
-                                Upon creation, a meeting is automatically allocated a random unassigned book.
+                                Only special users 
+                                {% if user.profile.is_special %}
+                                    <em>(that's you!)</em>
+                                {% else %}
+                                    <em>(not you!)</em>
+                                {% endif %}
+                                can create a new meeting.
+                                Upon creation, a meeting is automatically allocated a <span class="text-uppercase">random</span> unassigned book.
                             </li>
                         </ul>
                     </li>
@@ -65,7 +71,7 @@
         </div>    
         <div class="card-body">
             <p class="card-text">This application was written by allynt.</p>
-            <p class="card-text">It uses Docker & PostGIS & Python & Django & Bootstrap & CSS.</p>
+            <p class="card-text">It uses PostGIS & Python & Django & Bootstrap & CSS.</p>
             <p class="card-text">The code is hosted on github.  The app is hosted on Heroku.</p>
             <p class="card-text">Thie images are all AI generated courtesy of "deepai.org".</p>
             <p class="card-text">Be gentle, it was written in a day without any testing.</p>
