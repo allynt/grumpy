@@ -6,8 +6,11 @@ on: [push]
 jobs:
   app-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     continue-on-error: false
+    env: 
+      CACHE_DIR: ${{ github.workspace }}/.cache
+
     services:
       grumpy-db:
         image: kartoza/postgis:latest
@@ -20,8 +23,9 @@ jobs:
           - 5666:5432
 
     steps:
-      - uses: actions/checkout@v5
 
+      - uses: actions/checkout@v5
+      
       - name: "install python"
         uses: actions/setup-python@v5
         with:
@@ -33,11 +37,15 @@ jobs:
           enable-cache: true
           version: "0.9.1"
 
-      - name: "install project dependencies"
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client python3-gdal
-          uv sync --locked --dev
+      - name: "install system dependencies"
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: postgresql-client python3-gdal
+      
+      
+      
+      - name: "install project dependencies"        
+        run:  uv sync --locked --dev
 
       - name: "run tests"
         env:
