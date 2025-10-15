@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 env = environ.Env()
 
-DEBUG = False 
+DEBUG = False
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="shhh")
 
 ########
@@ -35,10 +35,8 @@ INSTALLED_APPS += []
 
 
 STORAGES = {
-    "default": {"BACKEND": "gdjango.core.files.storage.FileSystemStorage"},
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    },
+    "default": {"BACKEND": "grumpy.core.storages.LocalMediaStorage"},
+    "staticfiles": {"BACKEND": "grumpy.core.storages.LocalStaticStorage"},
 }
 
 STATIC_URL = "/static/"

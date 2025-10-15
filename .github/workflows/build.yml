@@ -1,5 +1,5 @@
-name: test
-run-name: test (invoked by ${{ github.actor }})
+name: buid
+run-name: build & test (invoked by ${{ github.actor }})
 
 on: [push]
 
@@ -35,7 +35,6 @@ jobs:
 
       - name: "install project dependencies"
         run: |
-          sudo apt-get update
           sudo apt-get install -y postgresql-client python3-gdal
           uv sync --locked --dev
 
