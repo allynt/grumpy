@@ -1,0 +1,47 @@
+name: test
+run-name: test (invoked by ${{ github.actor }})
+
+on: [push]
+
+jobs:
+  app-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    services:
+      grumpy-db:
+        image: kartoza/postgis:latest
+        env:
+          POSTGRES_USER\: grumpy_user
+          POSTGRES_PASS: grumpy_pwd
+          POSTGRES_DBNAME: grumpy_db
+          ALLOW_IP_RANGE: 0.0.0.0/0
+      ports:
+        - 5666:5432
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: "install python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: "install uv"
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          version: "0.9.1"
+
+      - name: "install project dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client python3-gdal
+          uv sync --locked --dev
+
+      - name: "run tests"
+        env:
+          DJANGO_ENVIRONMENT: "ci"
+          DJANGO_SETTINGS_MODULE: "config.settings"
+          DATABASE_URL: "postgis://grumpy_user:grumpy_pwd@localhost:5666/grumpy_db"
+        run: uv run pytest
