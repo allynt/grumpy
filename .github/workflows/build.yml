@@ -30,10 +30,6 @@ jobs:
       #   with:
       #     packages: postgresql-client python3-gdal
       #     version: 1.0
-      #     # execute_install_scripts: true
-
-      - name: "setup"
-        run: mkdir -p .apt
 
       - name: "install python"
         uses: actions/setup-python@v5
@@ -49,21 +45,19 @@ jobs:
             **/uv.lock
           version: "0.9.1"
 
-      - name: "cache system dependencies"
-        id: cache-dependencies
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-dependencies
-        with:
-          path: .apt
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.github/workflows/*' )}}
+      # - name: "cache system dependencies"
+      #   id: cache-dependencies
+      #   uses: actions/cache@v4
+      #   env:
+      #     cache-name: cache-dependencies
+      #   with:
+      #     path: .apt
+      #     key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.github/workflows/*' )}}
       
       - name: "install system dependencies"
-        if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
         run: |
-          sudo apt-get -o DIR::Cache=".apt" update
-          sudo apt-get -o DIR::Cache=".apt" install postgresql-client python3-gdal
-          apt-config dump | grep Dir::Cache
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client python3-gdal
 
       # - name: "install system dependencies"
       #   uses: awalsh128/cache-apt-pkgs-action@latest
