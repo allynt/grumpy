@@ -25,16 +25,13 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v5
+      - name: "checkout repository"
+        uses: actions/checkout@v5
+
       # - uses: awalsh128/cache-apt-pkgs-action@latest
       #   with:
       #     packages: postgresql-client python3-gdal
       #     version: 1.0
-
-      - uses: gerlero/apt-install@v1
-        with:
-          packages: postgresql-client python3-gdal
-          cache: true
 
 
       - name: "install python"
@@ -50,6 +47,12 @@ jobs:
             **/pyproject.toml
             **/uv.lock
           version: "0.9.1"
+
+      - name: "install system dependencies"
+        uses: gerlero/apt-install@v1
+        with:
+          packages: postgresql-client python3-gdal
+          cache: true
 
       # - name: "cache system dependencies"
       #   id: cache-dependencies
