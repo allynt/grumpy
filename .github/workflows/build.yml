@@ -30,7 +30,7 @@ jobs:
         with:
           packages: postgresql-client python3-gdal
           version: 1.0
-          execute_install_scripts: true
+          # execute_install_scripts: true
 
       - name: "install python"
         uses: actions/setup-python@v5
@@ -53,9 +53,7 @@ jobs:
       #     version: 1.0
       
       - name: "install project dependencies"        
-        run:  |
-          sudo apt-get install postgresql-client python3-gdal
-          uv sync --locked --dev
+        run:  uv sync --locked --dev
 
       - name: "run tests"
         env:
