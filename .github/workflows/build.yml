@@ -32,6 +32,9 @@ jobs:
       #     version: 1.0
       #     # execute_install_scripts: true
 
+      - name: "setup"
+        run: mkdir -p .apt
+
       - name: "install python"
         uses: actions/setup-python@v5
         with:
@@ -58,7 +61,6 @@ jobs:
       - name: "install system dependencies"
         if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
         run: |
-          mkdir -p .apt
           sudo apt-get -o DIR::Cache=".apt" update
           sudo apt-get -o DIR::Cache=".apt" install postgresql-client python3-gdal
           apt-config dump | grep Dir::Cache
