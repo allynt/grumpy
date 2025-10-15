@@ -6,7 +6,7 @@ on: [push]
 jobs:
 
   app-tests:
-  
+
     runs-on: ubuntu-latest
     timeout-minutes: 10
     continue-on-error: false
@@ -26,7 +26,11 @@ jobs:
     steps:
 
       - uses: actions/checkout@v5
-      
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: postgresql-client python3-gdal
+          version: 1.0
+
       - name: "install python"
         uses: actions/setup-python@v5
         with:
@@ -38,11 +42,11 @@ jobs:
           enable-cache: true
           version: "0.9.1"
 
-      - name: "install system dependencies"
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: postgresql-client python3-gdal
-          version: 1.0
+      # - name: "install system dependencies"
+      #   uses: awalsh128/cache-apt-pkgs-action@latest
+      #   with:
+      #     packages: postgresql-client python3-gdal
+      #     version: 1.0
       
       - name: "install project dependencies"        
         run:  uv sync --locked --dev
