@@ -4,12 +4,15 @@ run-name: build & test (invoked by ${{ github.actor }})
 on: [push]
 
 jobs:
+
   app-tests:
+  
     runs-on: ubuntu-latest
     timeout-minutes: 10
     continue-on-error: false
   
     services:
+
       grumpy-db:
         image: kartoza/postgis:latest
         env:
@@ -21,6 +24,7 @@ jobs:
           - 5666:5432
 
     steps:
+
       - uses: actions/checkout@v5
       
       - name: "install python"
