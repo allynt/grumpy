@@ -41,7 +41,6 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true          
-          cache-python: true
           cache-dependency-glob: |            
             **/pyproject.toml
             **/uv.lock
@@ -54,7 +53,9 @@ jobs:
       #     version: 1.0
       
       - name: "install project dependencies"        
-        run:  uv sync --locked --dev
+        run:  |
+          sudo apt-get install postgresql-client python3-gdal
+          uv sync --locked --dev
 
       - name: "run tests"
         env:
