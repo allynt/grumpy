@@ -15,7 +15,7 @@ class Command(BaseCommand):
     help = "Outputs the number of books owned by users according to their statuses."
 
     def add_arguments(self, parser):
-      
+
         parser.add_argument(
             "--read", action="store_true", help=_("Only list read books.")
         )
