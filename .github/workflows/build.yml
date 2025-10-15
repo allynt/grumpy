@@ -53,7 +53,7 @@ jobs:
           cache-name: cache-dependencies
         with:
           path: .apt
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles(''.github/workflows/*'' )}}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.github/workflows/*' )}}
       
       - name: "install system dependencies"
         if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
