@@ -54,13 +54,13 @@ jobs:
         with:
           path: .apt
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.github/workflows/*' )}}
+        run: mkdir -p .apt
       
       - name: "install system dependencies"
         if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
         run: |
           sudo apt-get -o DIR::Cache=".apt" update
           sudo apt-get -o DIR::Cache=".apt" install postgresql-client python3-gdal
-        run: |
           apt-config dump | grep Dir::Cache
 
       # - name: "install system dependencies"
