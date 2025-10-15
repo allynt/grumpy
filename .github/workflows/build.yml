@@ -56,8 +56,8 @@ jobs:
       
       - name: "install system dependencies"
         run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client python3-gdal
+          sudo apt-get -o DIR::Cache=".apt" update
+          sudo apt-get -o DIR::Cache=".apt" install -y postgresql-client python3-gdal
 
       # - name: "install system dependencies"
       #   uses: awalsh128/cache-apt-pkgs-action@latest
