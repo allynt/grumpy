@@ -30,6 +30,7 @@ jobs:
         with:
           packages: postgresql-client python3-gdal
           version: 1.0
+          execute_install_scripts: true
 
       - name: "install python"
         uses: actions/setup-python@v5
