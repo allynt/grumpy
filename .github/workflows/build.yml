@@ -40,7 +40,11 @@ jobs:
       - name: "install uv"
         uses: astral-sh/setup-uv@v6
         with:
-          enable-cache: true
+          enable-cache: true          
+          cache-python: true
+          cache-dependency-glob: |            
+            **/pyproject.toml
+            **/uv.lock
           version: "0.9.1"
 
       # - name: "install system dependencies"
