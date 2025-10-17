@@ -25,7 +25,7 @@
         {% endblock style %}
     </head>
 
-    <body class="min-vh-100 d-flex flex-shrink-0 flex-column">
+    <body class="min-vh-100 d-flex flex-shrink-0 flex-column" id="grumpy">
  
         <header data-bs-theme="dark">
             {% block header %}
@@ -86,8 +86,13 @@
         
         <footer class="footer">
             {% block footer %}
-                <div class="container">
-                    <span class="text-muted">© 2025 allynt</span>
+                <div class="container-fluid text-muted ">
+                    <div class="row align-items-center ">
+                        <div class="col">© 2025 allynt</div>
+                        {% if user.is_staff %}
+                            <div class="col text-end fst-italic"><a class="unstyled" href="{% url 'admin:index' %}">admin</a></div>
+                        {% endif %}
+                    </div>
                 </div>
             {% endblock footer %}
         </footer>
