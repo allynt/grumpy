@@ -277,15 +277,15 @@ EMAIL_USE_SSL = False
 # messages #
 ############
 
-from django.contrib import messages
+from django.contrib.messages import constants as message_constants
 
 MESSAGE_TAGS = {
     # translating django levels to bootstrap levels
-    messages.DEBUG: "alert-info",
-    messages.INFO: "alert-info",
-    messages.SUCCESS: "alert-success",
-    messages.WARNING: "alert-warning",
-    messages.ERROR: "alert-danger",
+    message_constants.DEBUG: "alert-info",
+    message_constants.INFO: "alert-info",
+    message_constants.SUCCESS: "alert-success",
+    message_constants.WARNING: "alert-warning",
+    message_constants.ERROR: "alert-danger",
 }
 
 #######
