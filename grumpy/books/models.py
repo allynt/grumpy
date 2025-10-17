@@ -50,6 +50,7 @@ class Book(models.Model):
                 violation_error_message="A book with the same title/author combination exists.",
             ),
         ]
+        ordering = ["created_at"]
 
     objects = BookManager.from_queryset(BookQuerySet)()
 
@@ -62,6 +63,9 @@ class Book(models.Model):
     title = models.CharField(max_length=255, blank=False, null=False)
     author = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     owner = models.ForeignKey(
         UserProfile,
