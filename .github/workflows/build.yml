@@ -28,12 +28,6 @@ jobs:
       - name: "checkout repository"
         uses: actions/checkout@v5
 
-      # - uses: awalsh128/cache-apt-pkgs-action@latest
-      #   with:
-      #     packages: postgresql-client python3-gdal
-      #     version: 1.0
-
-
       - name: "install python"
         uses: actions/setup-python@v5
         with:
@@ -48,33 +42,11 @@ jobs:
             **/uv.lock
           version: "0.9.1"
 
-      - name: "install system dependencies"
-        uses: gerlero/apt-install@v1
-        with:
-          packages: postgresql-client python3-gdal
-          cache: true
-
-      # - name: "cache system dependencies"
-      #   id: cache-dependencies
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: .apt
-      #     key: ${{ runner.os }}-apt-${{ hashFiles('.github/workflows/*' )}}
-      
-      # - name: "install system dependencies"
-      #   if: steps.cache-dependencies.outputs.cach-hi != 'true'
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y postgresql-client python3-gdal
-
-      # - name: "install system dependencies"
-      #   uses: awalsh128/cache-apt-pkgs-action@latest
-      #   with:
-      #     packages: postgresql-client python3-gdal
-      #     version: 1.0
-      
-      - name: "install project dependencies"        
-        run:  uv sync --locked --dev
+      - name: "install dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client python3-gdal
+          uv sync --locked --dev
 
       - name: "run tests"
         env:
