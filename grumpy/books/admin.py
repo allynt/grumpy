@@ -11,10 +11,19 @@ class BookAdmin(admin.ModelAdmin):
     fields = (
         (
             "id",
+            "created_at",
+            "updated_at",
             "title",
             "author",
             "description",
         ),
     )
-    readonly_fields = ("id",)
-    list_display = ("id",)
+    readonly_fields = (
+        "id",
+        "created_at",
+        "updated_at",
+    )
+    list_display = (
+        "id",
+        "created_at",
+    )
