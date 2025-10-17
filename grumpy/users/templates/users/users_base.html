@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+
+{% block header %}
+    {{ block.super }}
+    <div id="banner" class="text-center">
+        <img class="img-fluid"  src="{% static 'core/img/auth.jpg' %}"/>
+    </div>
+{% endblock header %}

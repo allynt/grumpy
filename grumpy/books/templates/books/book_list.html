@@ -19,7 +19,7 @@
         <div class="card-body">           
              <div class="list-group">
               {% for book in books %}
-                <a href="{% url 'book-update' book.pk %}"  class="d-flex list-group-item justify-content-between align-items-center">
+                <a href="{% url 'book-update' book.pk %}"  class="d-flex list-group-item list-group-item-action justify-content-between align-items-center">
                   "{{ book.title }}" by {{ book.author }}
                   {# TODO: MAKE THIS A BIT CLEANER #}                  
                   {% with book.status.value as status %}
