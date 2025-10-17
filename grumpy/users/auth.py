@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import mail_managers
+from django.urls import reverse
 from django.utils.encoding import force_str
 
 from allauth.account import app_settings as auth_app_settings
@@ -29,6 +30,12 @@ class AccountAdapter(DefaultAccountAdapter):
                 msg = f"{user} has not been approved yet."
                 raise forms.ValidationError(msg)
         return user
+
+    def get_password_change_redirect_url(self, request):
+        """
+        The URL to redirect to after a successful password change/set.
+        """
+        return reverse("index")
 
     def format_email_subject(self, subject) -> str:
         """

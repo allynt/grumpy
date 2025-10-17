@@ -1,0 +1,52 @@
+{% extends "users/users_base.html" %}
+
+{% load account %}
+{% load i18n %}
+{% load static %}
+{% load tags_settings %}
+{% load allauth %}
+
+{# just provides some links for allauth's user management #}
+{# grumpy itself (grumpy.users.models.UserProfile) doesn't have much to manage #}
+
+{% block content %}
+    
+    <div class="alert alert-primary">
+        Hello {% user_display user %}
+    </div>
+        
+     <div class="card border-info">
+        <div class="card-header">
+            Here are some things you can do with your account:
+        </div>    
+        <div class="card-body">
+            <div class="list-group">
+                <!-- <div class="list-group-item">
+                    <a href="{% url 'account_email' %}">Change your email address.</a>
+                </div> -->
+                <div class="list-group-item">
+                    <form method="post" action="{% url 'account_reverify_email' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="email" value="{{ user.email }}">
+                        <button type="submit" class="btn btn-outline-secondary">Re-verify your email address</button>
+                    </form>
+                </div>
+                <div class="list-group-item">
+                    <a class="btn btn-outline-secondary" href="{% url 'account_change_password' %}">Change your password.</a>
+                </div>
+                {% if user.profile.is_special %}
+                    <div class="list-group-item list-group-item-success">
+                        Congratulations, you are a special user who can add both <a class="unstyled" href="{% url 'book-list' %}"><strong>books</strong></a> <em>and</em> <a class="unstyled" href="{% url 'meeting-list' %}"><strong>meetings</strong></a>.
+                    </div>
+                {% else %}
+                    <div class="list-group-item list-group-item-warning">                    
+                        You are an ordinary user; You can add <a class="unstyled" href="{% url 'book-list' %}"><strong>books</strong></a> <em>but not </em> <a class="unstyled" href="{% url 'meeting-list' %}"><strong>meetings</strong></a>.
+                    </div>
+                {% endif %}
+                </div>
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %} 
+

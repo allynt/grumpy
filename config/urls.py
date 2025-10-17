@@ -55,6 +55,9 @@ urlpatterns = [
     path(
         "accounts/login/", views_auth.login_view, name="account_login"
     ),  # override built-in login_view
+    path(
+        "accounts/reverify/", views_auth.reverify_view, name="account_reverify_email"
+    ),  # add re-verify view (this is a new form-processing view, but it uses logic from allauth)
     path("accounts/", include("allauth.urls")),
     # apps...
     path("", include(core_urlpatterns)),
