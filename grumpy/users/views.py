@@ -54,5 +54,10 @@ def reverify_view(request):
             emailaddress,
             signup=False,
         )
+        if not confirmation:
+            msg = (
+                f"Slow down there buddy.  There are rate limits on this sort of thing."
+            )
+            messages.add_message(request, messages.WARNING, msg)
 
     return HttpResponseRedirect(reverse("users-current"))

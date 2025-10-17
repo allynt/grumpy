@@ -259,11 +259,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # security, etc. #
 ##################
 
-
 ALLOWED_HOSTS = ["*"]  # redefined in environment module
 
 # TODO: CORS stuff
-
 
 #########
 # email #
@@ -274,6 +272,21 @@ ALLOWED_HOSTS = ["*"]  # redefined in environment module
 EMAIL_TIMEOUT = 60
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+############
+# messages #
+############
+
+from django.contrib import messages
+
+MESSAGE_TAGS = {
+    # translating django levels to bootstrap levels
+    messages.DEBUG: "alert-info",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
 
 #######
 # API #
