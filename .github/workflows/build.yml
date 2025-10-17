@@ -1,14 +1,18 @@
-name: buid
+name: build
 run-name: build & test (invoked by ${{ github.actor }})
 
 on: [push]
 
 jobs:
+
   app-tests:
+
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     continue-on-error: false
+  
     services:
+
       grumpy-db:
         image: kartoza/postgis:latest
         env:
@@ -20,7 +24,9 @@ jobs:
           - 5666:5432
 
     steps:
-      - uses: actions/checkout@v5
+
+      - name: "checkout repository"
+        uses: actions/checkout@v5
 
       - name: "install python"
         uses: actions/setup-python@v5
@@ -30,10 +36,13 @@ jobs:
       - name: "install uv"
         uses: astral-sh/setup-uv@v6
         with:
-          enable-cache: true
+          enable-cache: true          
+          cache-dependency-glob: |            
+            **/pyproject.toml
+            **/uv.lock
           version: "0.9.1"
 
-      - name: "install project dependencies"
+      - name: "install dependencies"
         run: |
           sudo apt-get update
           sudo apt-get install -y postgresql-client python3-gdal
