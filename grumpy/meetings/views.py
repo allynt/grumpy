@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
@@ -49,3 +50,14 @@ class MeetingCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def get_initial(self):
         random_unread_book = Book.objects.unread().random()
         return {"book": random_unread_book}
+
+
+class MeetingDetailView(LoginRequiredMixin, DetailView):
+    model = Meeting
+    context_object_name = "meeting"
+    template_name = "meetings/meeting_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["book"] = self.object.book
+        return context
