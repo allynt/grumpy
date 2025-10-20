@@ -1,11 +1,13 @@
 from allauth.account import app_settings
+from allauth.account.adapter import get_adapter
 from allauth.account.internal.flows.email_verification import (
     send_verification_email_to_address,
 )
 from allauth.account.mixins import CloseableSignupMixin
 from allauth.account.models import EmailAddress
-from allauth.account.views import LoginView as AuthLoginView
-from allauth.account.adapter import get_adapter
+from allauth.account.views import (
+    LoginView as AuthLoginView,
+)
 
 from django.contrib import messages
 from django.http import HttpResponseRedirect, Http404
