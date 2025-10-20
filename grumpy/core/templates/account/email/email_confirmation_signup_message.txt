@@ -1,0 +1,17 @@
+{% extends "account/email/email_confirmation_message.txt" %}
+
+{# override the built-in email message to include a bit about approval #}
+
+{% load i18n %}
+{% load tags_settings %}
+
+
+{% block content %}
+    {{ block.super }}
+
+    {% settings_value 'REQUIRE_APPROVAL' as require_approval %}
+    {% if require_approval %}        
+{% blocktranslate %} Please note that an administrator may have to approve your account before you can access the site.  This is a manual process, so please be patient.{% endblocktranslate %}
+    {% endif %}
+
+{% endblock content %}
