@@ -12,9 +12,9 @@
             Here are some meetings.
         </div>    
         <div class="card-body">           
-            <ul class="list-group">
+            <div class="list-group">
                 {% for meeting in meetings %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'meeting-detail' meeting.pk %}"  class="list-group-item list-group-item-action justify-content-between align-items-center">
                         <span>
                             On <strong>{{ meeting.date }}</strong> 
                             {% if meeting.status == meeting.MeetingStatus.PAST %} 
@@ -36,9 +36,9 @@
                             {% endif %}">
                                 {{ meeting.status }}
                         </span> -->
-                    </li> 
+                    </a>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
 
