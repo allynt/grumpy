@@ -64,9 +64,7 @@ THIRD_PARTY_APPS = [
     "bootstrap_datepicker_plus",
     "colorfield",
     "corsheaders",
-    # no need to make project restful
-    # "drf_spectacular",
-    # "rest_framework",
+    # "debug_toolbar",  # added as needed in environment module
 ]
 
 LOCAL_APPS = [
@@ -322,7 +320,7 @@ ALLOW_SIGNIN = DynamicSetting(
 
 REQUIRE_APPROVAL = DynamicSetting(
     "core.GrumpySettings.require_approval",
-    True,
+    False,
 )
 
 NOTIFY_SIGNUPS = DynamicSetting(

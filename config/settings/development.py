@@ -100,3 +100,48 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+#############
+# profiling #
+#############
+
+import os
+import sys
+
+# profiling should be disabled during tests
+TESTING = "test" in sys.argv or "PYTEST_VERSION" in os.environ
+if not TESTING:
+
+    # see "https://gist.github.com/douglasmiranda/9de51aaba14543851ca3"
+    # for tips about making django_debug_toolbar to play nicely w/ Docker
+    import socket
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [
+        "127.0.0.1",
+        "localhost",
+    ] + [ip[:-1] + "1" for ip in ips]
+
+    # add DebugToolbar after staticfile (whitenoise) middleware
+    middleware_index = next(
+        (
+            index
+            for index, element in enumerate(MIDDLEWARE)
+            if "WhiteNoiseMiddleware" in element
+        ),
+        None,
+    )
+    MIDDLEWARE.insert(
+        middleware_index + 1 if middleware_index else 0,
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    )
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "PROFILER_CAPTURE_PROJECT_CODE": True,
+        "SHOW_COLLAPSED": True,
+        "SHOW_TOOLBAR_CALLBACK": "debug_toolbar.middleware.show_toolbar_with_docker",
+    }
+
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
