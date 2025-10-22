@@ -110,8 +110,8 @@ if settings.DEBUG:
         path("500/", partial(get_attr_from_path(handler500), exception=None)),
     ]
 
-if "debug_toolbar" in settings.INSTALLED_APPS:
-    # profiling pages...
-    from debug_toolbar.toolbar import debug_toolbar_urls
+    if "debug_toolbar" in settings.INSTALLED_APPS:
+        # profiling pages...
+        from debug_toolbar.toolbar import debug_toolbar_urls
 
-    urlpatterns = urlpatterns + debug_toolbar_urls()
+        urlpatterns = urlpatterns + debug_toolbar_urls()

@@ -20,9 +20,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default="shhh")
 # TODOD: might want to insert `whitenoise.runserver_nostatic` to the head of INSTALLED_APPS if I decide to use WhiteNoise in development
 # as per https://whitenoise.readthedocs.io/en/latest/django.html#using-whitenoise-in-development
 
-INSTALLED_APPS += [
-    "debug_toolbar",
-]
+INSTALLED_APPS += []
 
 ########################
 # static & media Files #
@@ -107,32 +105,43 @@ LOGGING = {
 # profiling #
 #############
 
-# see "https://gist.github.com/douglasmiranda/9de51aaba14543851ca3"
-# for tips about making django_debug_toolbar to play nicely w/ Docker
-import socket
+import os
+import sys
 
-hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-INTERNAL_IPS = [
-    "127.0.0.1",
-    "localhost",
-] + [ip[:-1] + "1" for ip in ips]
+# profiling should be disabled during tests
+TESTING = "test" in sys.argv or "PYTEST_VERSION" in os.environ
+if not TESTING:
 
-# add DebugToolbar after staticfile (whitenoise) middleware
-middleware_index = next(
-    (
-        index
-        for index, element in enumerate(MIDDLEWARE)
-        if "WhiteNoiseMiddleware" in element
-    ),
-    None,
-)
-MIDDLEWARE.insert(
-    middleware_index + 1 if middleware_index else 0,
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-)
+    # see "https://gist.github.com/douglasmiranda/9de51aaba14543851ca3"
+    # for tips about making django_debug_toolbar to play nicely w/ Docker
+    import socket
 
-DEBUG_TOOLBAR_CONFIG = {
-    "PROFILER_CAPTURE_PROJECT_CODE": True,
-    "SHOW_COLLAPSED": True,
-    "SHOW_TOOLBAR_CALLBACK": "debug_toolbar.middleware.show_toolbar_with_docker",
-}
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [
+        "127.0.0.1",
+        "localhost",
+    ] + [ip[:-1] + "1" for ip in ips]
+
+    # add DebugToolbar after staticfile (whitenoise) middleware
+    middleware_index = next(
+        (
+            index
+            for index, element in enumerate(MIDDLEWARE)
+            if "WhiteNoiseMiddleware" in element
+        ),
+        None,
+    )
+    MIDDLEWARE.insert(
+        middleware_index + 1 if middleware_index else 0,
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    )
+
+    DEBUG_TOOLBAR_CONFIG = {
+        "PROFILER_CAPTURE_PROJECT_CODE": True,
+        "SHOW_COLLAPSED": True,
+        "SHOW_TOOLBAR_CALLBACK": "debug_toolbar.middleware.show_toolbar_with_docker",
+    }
+
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
