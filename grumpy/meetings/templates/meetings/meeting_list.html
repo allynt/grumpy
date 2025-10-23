@@ -9,7 +9,11 @@
     
     <div class="card">
         <div class="card-header">
-            Here are some meetings.
+            {% if not meetings %}
+                There are no meetings.
+            {% else %}
+                Here are some meetings.
+            {% endif %}
         </div>    
         <div class="card-body">           
             <div class="list-group">

@@ -34,7 +34,9 @@
                 {% endfor %}
                 
                 <br/>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">
+                    {% if book %} Update {% else %} Add {% endif %}
+                </button>
                 {% if book %}
                     {% if not book.meeting %}
                         <a href="{% url 'book-delete' book.pk %}" class="btn btn-danger">Delete</a>
