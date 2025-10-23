@@ -1,10 +1,12 @@
 import logging
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
+from grumpy.core.utils import is_error
 from grumpy.books.models import Book
 
 logger = logging.getLogger(__name__)
@@ -45,7 +47,12 @@ class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         current_user = self.request.user
         form.instance.owner = current_user.profile
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        if not is_error(response.status_code):
+            messages.add_message(
+                self.request, messages.SUCCESS, f'Successfully added "{self.object}".'
+            )
+        return response
 
     def test_func(self):
         # fn to use w/ https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.mixins.UserPassesTestMixin
@@ -77,6 +84,14 @@ class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             )
         return user_can_update_book
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if not is_error(response.status_code):
+            messages.add_message(
+                self.request, messages.SUCCESS, f'Successfully updated "{self.object}".'
+            )
+        return response
+
 
 class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Book
@@ -94,3 +109,11 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
                 f"PermissionDeniedError: {current_user} cannot delete {current_object}."
             )
         return user_can_delete_book
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if not is_error(response.status_code):
+            messages.add_message(
+                self.request, messages.SUCCESS, f'Successfully deleted "{self.object}".'
+            )
+        return response

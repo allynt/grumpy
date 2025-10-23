@@ -1,14 +1,16 @@
 import logging
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
+from grumpy.core.utils import is_error
+from grumpy.books.models import Book
 from grumpy.meetings.forms import MeetingForm
 from grumpy.meetings.models import Meeting
-from grumpy.books.models import Book
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +52,14 @@ class MeetingCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def get_initial(self):
         random_unread_book = Book.objects.unread().random()
         return {"book": random_unread_book}
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if not is_error(response.status_code):
+            messages.add_message(
+                self.request, messages.SUCCESS, "Successfully added meeting."
+            )
+        return response
 
 
 class MeetingDetailView(LoginRequiredMixin, DetailView):
