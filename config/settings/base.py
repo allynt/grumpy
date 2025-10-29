@@ -265,7 +265,7 @@ ALLOWED_HOSTS = ["*"]  # redefined in environment module
 # email #
 #########
 
-# further email settins (like backend) configured in environment module
+# further email settings (like backend) are configured in environment module
 
 EMAIL_TIMEOUT = 60
 EMAIL_USE_TLS = True
@@ -278,7 +278,7 @@ EMAIL_USE_SSL = False
 from django.contrib.messages import constants as message_constants
 
 MESSAGE_TAGS = {
-    # translating django levels to bootstrap levels
+    # translating Django levels to Bootstrap colors
     message_constants.DEBUG: "alert-info",
     message_constants.INFO: "alert-info",
     message_constants.SUCCESS: "alert-success",
