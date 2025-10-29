@@ -12,11 +12,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from allauth.account.decorators import secure_admin_login
+# from allauth.account.decorators import secure_admin_login
 
 from config.types import EnvironmentTypes
-from grumpy.users import views as views_auth
 
+from grumpy.users import views as views_auth
 from grumpy.core.urls import urlpatterns as core_urlpatterns
 from grumpy.users.urls import urlpatterns as users_urlpatterns
 from grumpy.books.urls import urlpatterns as books_urlpatterns
@@ -46,7 +46,6 @@ admin.autodiscover()
 #################
 # normal routes #
 #################
-
 
 urlpatterns = [
     # admin...
@@ -110,8 +109,8 @@ if settings.DEBUG:
         path("500/", partial(get_attr_from_path(handler500), exception=None)),
     ]
 
+    # profiling pages...
     if "debug_toolbar" in settings.INSTALLED_APPS:
-        # profiling pages...
         from debug_toolbar.toolbar import debug_toolbar_urls
 
         urlpatterns = urlpatterns + debug_toolbar_urls()
