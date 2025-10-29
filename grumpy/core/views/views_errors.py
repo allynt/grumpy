@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def bad_request_view(request, exception=None):
     context = {
-        "msg": "The requested resource was not found on this server",
+        "msg": "That was an invalid request.",
     }
     status = HTTPStatus.BAD_REQUEST
     logging.error(f"{status}: {request}")
