@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import MiddlewareNotUsed
@@ -31,9 +33,5 @@ class DomainRedirectionMiddleware:
         if request_domain == site_domain:
             return self.get_response(request)
         else:
-            if request.is_secure():
-                url = "https://"
-            else:
-                url = "http://"
-            url += site_domain + request.get_full_path()
+            url = urljoin(f"{request.scheme}://{site_domain}", request.get_full_path())
             return redirect(url, permanent=True)
