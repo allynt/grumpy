@@ -1,3 +1,5 @@
+[![build](https://github.com/allynt/grumpy/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/allynt/grumpy/actions/workflows/build.yml)
+
 # Grumpy
 
 - [Grumpy](#grumpy)
