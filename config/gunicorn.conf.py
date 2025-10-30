@@ -84,3 +84,12 @@ else:
     # are correctly marked as secure. This allows the WSGI app (in our case, Django) to distinguish
     # between HTTP and HTTPS requests for features like HTTP->HTTPS URL redirection.
     forwarded_allow_ips = "*"
+
+# MODIFIED BY AT
+
+def when_ready(server):
+    # touch app-initialized when ready
+    open('/tmp/app-initialized', 'w').close()
+
+# redefine bind to use sockets
+bind = "unix:///tmp/nginx.socket"
