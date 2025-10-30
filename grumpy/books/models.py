@@ -12,7 +12,6 @@ from grumpy.users.models import UserProfile
 
 
 class BookStatus(str, Enum):
-
     UNREAD = "Unread"
     READ = "Read"
     READING = "Reading"
@@ -30,8 +29,11 @@ class BookQuerySet(models.QuerySet):
         # I would do something like https://books.agiliq.com/projects/django-orm-cookbook/en/latest/random.html
         return self.order_by("?").first()
 
+    def reading(self):
+        return self.filter(meeting__isnull=False).filter(meeting__status="Future")
+
     def read(self):
-        return self.filter(meeting__isnull=False)
+        return self.filter(meeting__isnull=False).filter(meeting__status="Past")
 
     def unread(self):
         return self.filter(meeting__isnull=True)
@@ -91,7 +93,9 @@ class Book(models.Model):
     def status(self):
         try:
             meeting = self.meeting
-            # TODO: A BIT MORE FINE-GRAINED
-            return BookStatus.READ
+            if meeting.status == "FUTURE":
+                return BookStatus.READING
+            else:
+                return BookStatus.READ
         except ObjectDoesNotExist:
             return BookStatus.UNREAD
