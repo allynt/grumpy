@@ -10,3 +10,12 @@
         <img class="img-fluid"  src="{% static 'core/img/meetings.jpg' %}"/>
     </div>
 {% endblock header %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type='text/javascript'>
+        $(document).ready(function() {
+            setActiveNav("#meetings-nav-item");
+        });
+    </script>
+{% endblock scripts %}

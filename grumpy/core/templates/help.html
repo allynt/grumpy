@@ -79,3 +79,12 @@
     </div>
 
 {% endblock content %} 
+
+{% block scripts %}
+    {{ block.super }}
+    <script type='text/javascript'>
+        $(document).ready(function() {
+            setActiveNav("#help-nav-item");
+        });
+    </script>
+{% endblock scripts %}
