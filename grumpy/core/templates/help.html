@@ -79,3 +79,15 @@
     </div>
 
 {% endblock content %} 
+
+{% block scripts %}
+    {{ block.super }}
+    <script type='text/javascript'>
+        $(document).ready(function() {
+            // style the navbar according to the active page...
+            var id = "#help-nav-item"
+            $("#grumpy .navbar-nav").find("a.active").removeClass("active");
+            $("#grumpy .navbar-nav " + id).find("a").addClass("active");
+        });
+    </script>
+{% endblock scripts %}
