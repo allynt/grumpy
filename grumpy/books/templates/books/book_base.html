@@ -15,10 +15,7 @@
     {{ block.super }}
     <script type='text/javascript'>
         $(document).ready(function() {
-            // style the navbar according to the active page...
-            var id = "#books-nav-item"
-            $("#grumpy .navbar-nav").find("a.active").removeClass("active");
-            $("#grumpy .navbar-nav " + id).find("a").addClass("active");
+            setActiveNav("#books-nav-item");
         });
     </script>
 {% endblock scripts %}
