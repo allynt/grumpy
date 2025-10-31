@@ -31,6 +31,14 @@ http {
 		server unix:/tmp/nginx.socket fail_timeout=0;
 	}
 
+	# MODIFIED BY AT
+	server {
+		# redirect to subdomain
+		server_name grumpyoldmensbookclub.com;
+		return 301 $scheme://www.grumpyoldmensbookclub.com$request_uri;
+	}
+	# END MODIFIED BY AT
+
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
