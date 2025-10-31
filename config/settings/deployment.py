@@ -40,6 +40,11 @@ if USE_POSTGIS:
         "overwriting DATABASES['default']['ENGINE'] to support postgis on heroku"
     )
 
+# TODO: SHOULD `CONN_MAX_AGE' BE INCREASED (as per https://docs.djangoproject.com/en/5.2/ref/databases/#persistent-connections) ?
+# TODO: HOW DOES IT INTERACT W/ pgbouncer ?
+# CONN_MAX_AGE = 0
+
+DISABLE_SERVER_SIDE_CURSORS = True  # required when using pgbouncer's pool_mode=transaction
 
 ########################
 # static & media Files #
@@ -61,6 +66,18 @@ STATIC_ROOT = ROOT_DIR / "_static"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = ROOT_DIR / "_media"
 
+
+#############
+# templates #
+#############
+
+
+# TODO: UNCOMMENT ONCE I'M CERTAIN THE TEMPLATES WON'T CHANGE MUCH
+# TEMPLATES[0]["OPTIONS"]["loaders"] = [
+#     # wrap template loaders w/ caching as per https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/#templates
+#     ("django.template.loaders.cached.Loader", TEMPLATES[0]["OPTIONS"].pop("loaders")),
+# ]
+
 ##################
 # security, etc. #
 ##################
@@ -68,6 +85,9 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 ALLOWED_HOST = env("DJANGO_HOST", default="*")
 ALLOWED_HOSTS = [ALLOWED_HOST]
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 #########
 # Email #
