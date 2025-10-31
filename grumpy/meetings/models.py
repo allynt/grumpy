@@ -1,4 +1,5 @@
 import uuid
+from dataclasses import dataclass
 
 from django.contrib.gis.db import models as gis_models
 from django.db import models
@@ -6,7 +7,18 @@ from django.db.models.functions import Now
 
 from grumpy.books.models import Book
 
-DATETIME_FORMAT_CODE = "%d %B %Y @ %I:%M"
+
+@dataclass
+class Location:
+    latitude: float
+    longitude: float
+    zoom: int = 12
+
+
+DEFAULT_LOCATION = Location(50.618309, -3.410880)
+
+
+MODEL_DATETIME_FORMAT_CODE = "%d %B %Y @ %I:%M"
 
 
 class MeetingManager(models.Manager):
@@ -54,5 +66,5 @@ class Meeting(gis_models.Model):
     )
 
     def __str__(self):
-        datetime_format_string = self.date.strftime(DATETIME_FORMAT_CODE)
+        datetime_format_string = self.date.strftime(MODEL_DATETIME_FORMAT_CODE)
         return f'{datetime_format_string} - "{self.book}"'
