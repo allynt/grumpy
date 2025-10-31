@@ -41,7 +41,11 @@ http {
 
 	server {
 		listen <%= ENV["PORT"] %>;
-		server_name _;
+		# MODIFIED BY AT
+		# set server name to help w/ redirect to subdowmain above
+		# server_name _;
+		server_name www.grumpyoldmensbookclub.com
+		# END MODIFIED BY AT
 		keepalive_timeout 5;
 
 		location / {
