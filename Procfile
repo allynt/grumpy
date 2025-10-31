@@ -1,4 +1,5 @@
-web: bin/start-nginx gunicorn --bind unix:/tmp/nginx.socket --pid /tmp/app-initialized config.wsgi
+web: bin/start-nginx bin/start-pgbouncer gunicorn --bind unix:/tmp/nginx.socket --pid /tmp/app-initialized config.wsgi
+# web: bin/start-nginx gunicorn --bind unix:/tmp/nginx.socket --pid /tmp/app-initialized config.wsgi
 # web: gunicorn --config config/gunicorn.conf.py config.wsgi
 # note: heroku automatically runs `collectstatic` on release
 # https://devcenter.heroku.com/articles/release-phase 
