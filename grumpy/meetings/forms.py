@@ -1,10 +1,13 @@
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 from django import forms
+from django.contrib.gis import forms as gis_forms
+
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 
 from grumpy.books.models import Book
-from grumpy.meetings.models import Meeting
+from grumpy.meetings.models import Meeting, DEFAULT_LOCATION
 
-DATETIME_FORMAT_CODE = "YYYY-MM-DD HH:MM"
+
+FORM_DATETIME_FORMAT_CODE = "YYYY-MM-DD HH:MM"
 
 
 class MeetingForm(forms.ModelForm):
@@ -15,13 +18,14 @@ class MeetingForm(forms.ModelForm):
             "date",
             "status",
             "notes",
+            "location",
         ]
         widgets = {
             # using 3rd party DatePicker support b/c
             # I can't be bothered to write my own
             "date": DateTimePickerInput(
                 options={
-                    "format": DATETIME_FORMAT_CODE,
+                    "format": FORM_DATETIME_FORMAT_CODE,
                     "showTodayButton": False,
                 }
             ),
@@ -37,4 +41,16 @@ class MeetingForm(forms.ModelForm):
         required=True,
         to_field_name="title",
         widget=forms.TextInput(attrs={"readonly": "readonly"}),
+    )
+
+    location = gis_forms.PointField(
+        widget=gis_forms.OSMWidget(
+            attrs={
+                "map_width": 400,  # not working; set in "base.css" instead
+                "map_height": 400,  # not working; set in "base.css" instead
+                "default_zoom": DEFAULT_LOCATION.zoom,
+                "default_lat": DEFAULT_LOCATION.latitude,
+                "default_lon": DEFAULT_LOCATION.longitude,
+            }
+        )
     )

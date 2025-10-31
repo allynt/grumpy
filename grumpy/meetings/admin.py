@@ -3,17 +3,7 @@ from dataclasses import dataclass
 from django.contrib import admin
 from django.contrib.gis import admin as gis_admin
 
-from grumpy.meetings.models import Meeting
-
-
-@dataclass
-class Location:
-    latitude: float
-    longitude: float
-    zoom: int = 12
-
-
-DEFAULT_LOCATION = Location(50.618309, -3.410880)
+from grumpy.meetings.models import Meeting, DEFAULT_LOCATION
 
 
 @admin.register(Meeting)
