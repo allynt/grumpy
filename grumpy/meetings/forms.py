@@ -35,8 +35,8 @@ class MeetingForm(forms.ModelForm):
         # a bit of HACKERY to ensure that the initial book cannot be changed; if I
         # don't specify "to_field_name", then Django just uses "pk", and by specifying
         # readonly" instead of "disabled" I ensure Django still POSTS the data, and
-        # using "TextInput" widget limits the value to a single choice (and the standard
-        # "Select" wdidget cannot be "readonly").
+        # using "TextInput" widget limits the value to a single choice (and anyway
+        # the standard "Select" wdidget cannot be "readonly").
         queryset=Book.objects.unread(),
         required=True,
         to_field_name="title",
