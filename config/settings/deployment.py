@@ -54,7 +54,7 @@ DISABLE_SERVER_SIDE_CURSORS = True  # required when using pgbouncer's pool_mode=
 # BUT I _COULD_ USE S3 (VIA Bucketeer) INSTEAD
 
 STORAGES = {
-    "default": {"BACKEND": "gdjango.core.files.storage.FileSystemStorage"},
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
     },
