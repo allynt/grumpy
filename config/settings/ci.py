@@ -58,8 +58,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Email #
 #########
 
-# in ci, just use the console for email
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# in ci, just use in-memory email
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 SERVER_EMAIL = PROJECT_EMAIL.format(role="grumpyoldmensbookclub")
 DEFAULT_FROM_EMAIL = (
