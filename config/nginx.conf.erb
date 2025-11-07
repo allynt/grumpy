@@ -33,11 +33,11 @@ http {
 
 	# MODIFIED BY AT
 	# redirect default domain to custom domain
-	server {
-		listen <%= ENV["PORT"] %>;
-		server_name grumpy-38764c2c607e.herokuapp.com;
-		return 301 $scheme://www.grumpyoldmensbookclub.com$request_uri;
-	}
+	#server {
+	#	listen <%= ENV["PORT"] %>;
+	#	server_name .grumpy-38764c2c607e.herokuapp.com;
+	#	return 301 $scheme://www.grumpyoldmensbookclub.com$request_uri;
+	#}
 	# END MODIFIED BY AT
 
 	server {
