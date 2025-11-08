@@ -31,15 +31,6 @@ http {
 		server unix:/tmp/nginx.socket fail_timeout=0;
 	}
 
-	# MODIFIED BY AT
-	# redirect default domain to custom domain
-	#server {
-	#	listen <%= ENV["PORT"] %>;
-	#	server_name .grumpy-38764c2c607e.herokuapp.com;
-	#	return 301 $scheme://www.grumpyoldmensbookclub.com$request_uri;
-	#}
-	# END MODIFIED BY AT
-
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
@@ -59,4 +50,14 @@ http {
 			proxy_pass http://app_server;
 		}
 	}
+
+	# MODIFIED BY AT
+	# redirect default domain to custom domain
+	server {
+		listen <%= ENV["PORT"] %>;
+		server_name .grumpy-38764c2c607e.herokuapp.com;
+		return 301 $scheme://www.grumpyoldmensbookclub.com$request_uri;
+	}
+	# END MODIFIED BY AT
+
 }
