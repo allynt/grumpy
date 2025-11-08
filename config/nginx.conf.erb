@@ -55,7 +55,6 @@ http {
 	# redirect default domain to custom domain
 	server {
 		listen <%= ENV["PORT"] %>;
-		#server_name .grumpy-38764c2c607e.herokuapp.com;
 		server_name '.<%= ENV["DEFAULT_DOMAIN"] %>';
 		return 301 $scheme://<%= ENV["CUSTOM_DOMAIN"] %>$request_uri;
 	}
