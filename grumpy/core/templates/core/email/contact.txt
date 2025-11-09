@@ -1,0 +1,18 @@
+{% extends "account/email/base_message.txt" %}
+{% load i18n %}
+
+{% block content %}
+
+{% autoescape off %}
+
+Message received from {{ email }}{% if name %}({{ name }}){% endif %}:
+
+Subject: 
+{{ subject }}
+
+Message: 
+{{ message }}
+
+{% endautoescape %}
+
+{% endblock content %}
