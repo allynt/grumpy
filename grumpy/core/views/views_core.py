@@ -50,7 +50,7 @@ class ContactView(FormView):
             adapter = get_adapter(self.request)
             mail_managers(
                 adapter.format_email_subject("Contact Form"),
-                render_to_string('core/email/contact.txt', form.cleaned_data),
+                render_to_string("email/contact.txt", form.cleaned_data),
                 fail_silently=False,
             )
             msg = "Your message has been sent.  Bear with me, I'll read it eventually."
