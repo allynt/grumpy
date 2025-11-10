@@ -2,10 +2,11 @@
 {% load i18n %}
 
 {% block content %}
-
 {% autoescape off %}
+Message received from {{ name }} [{{ email }}]:
 
-Message received from {{ email }}{% if name %}({{ name }}){% endif %}:
+Authenticated:
+{{ authenticated }}
 
 Subject: 
 {{ subject }}
@@ -14,5 +15,4 @@ Message:
 {{ message }}
 
 {% endautoescape %}
-
 {% endblock content %}

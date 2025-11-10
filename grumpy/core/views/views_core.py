@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import mail_managers
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -36,21 +37,29 @@ class ContactView(FormView):
 
     def get_initial(self):
         initial = super().get_initial()
-        current_user = self.request.user
         try:
-            email = current_user.email
-            initial.update({"email": current_user.email})
+            current_user = self.request.user
+            initial.update(
+                {
+                    "email": current_user.email,
+                }
+            )
         except AttributeError as e:
             pass
         return initial
 
     def form_valid(self, form):
+        adapter = get_adapter(self.request)
+        subject = adapter.format_email_subject("Contact Form")
+        context = form.cleaned_data | {
+            "current_site": get_current_site(self.request),
+            "authenticated": self.request.user.is_authenticated,
+        }
 
         try:
-            adapter = get_adapter(self.request)
             mail_managers(
-                adapter.format_email_subject("Contact Form"),
-                render_to_string("email/contact.txt", form.cleaned_data),
+                subject,
+                render_to_string("email/contact.txt", context=context),
                 fail_silently=False,
             )
             msg = "Your message has been sent.  Bear with me, I'll read it eventually."
