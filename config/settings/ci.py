@@ -37,7 +37,9 @@ INSTALLED_APPS += []
 STORAGES = {
     # CI uses in-memory storages to help w/ speed
     "default": {"BACKEND": "django.core.files.storage.InMemoryStorage"},
-    "staticfiles": {"BACKEND": "django.contrib.staticfiles.testing.StaticLiveServerTestCase"},
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.testing.StaticLiveServerTestCase"
+    },
 }
 
 STATIC_URL = "/static/"
