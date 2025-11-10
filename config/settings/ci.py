@@ -52,8 +52,7 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 # security, etc. #
 ##################
 
-ALLOWED_HOST = env("DJANGO_HOST", default="*")
-ALLOWED_HOSTS = [ALLOWED_HOST]
+ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 #########

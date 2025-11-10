@@ -45,7 +45,7 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 # security, etc. #
 ##################
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 #########

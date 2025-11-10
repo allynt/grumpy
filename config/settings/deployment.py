@@ -84,8 +84,16 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 # security, etc. #
 ##################
 
-ALLOWED_HOST = env("DJANGO_HOST", default="*")
-ALLOWED_HOSTS = [ALLOWED_HOST]
+ALLOWED_HOSTS = set(
+    [
+        host
+        for host in (
+            env(VAR, default="*").removeprefix("www")
+            for VAR in ["DEFAULT_DOMAIN", "CUSTOM_DOMAIN"]
+        )
+    ]
+)
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_COOKIE_SECURE = True
