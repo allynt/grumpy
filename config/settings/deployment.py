@@ -84,20 +84,21 @@ MEDIA_ROOT = ROOT_DIR / "_media"
 # security, etc. #
 ##################
 
-ALLOWED_HOSTS = [
-    # this is a bit convoluted...
-    # it gathers DEFAULT_DOMAIN & CUSTOM_DOMAIN and removes any leading "wwww" (substituting "*" if either doesn't exist)
-    # it then inserts the "." subdomain-wildcard as needed
-    f".{host}" if not (host.startswith(".") or host == "*") else host
-    for host in set(
-        [
-            domain.removeprefix("www")
-            for domain in (
-                env(VAR, default="*") for VAR in ["DEFAULT_DOMAIN", "CUSTOM_DOMAIN"]
-            )
-        ]
-    )
-]
+ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = [
+#     # this is a bit convoluted...
+#     # it gathers DEFAULT_DOMAIN & CUSTOM_DOMAIN and removes any leading "wwww" (substituting "*" if either doesn't exist)
+#     # it then inserts the "." subdomain-wildcard as needed
+#     f".{host}" if not (host.startswith(".") or host == "*") else host
+#     for host in set(
+#         [
+#             domain.removeprefix("www")
+#             for domain in (
+#                 env(VAR, default="*") for VAR in ["DEFAULT_DOMAIN", "CUSTOM_DOMAIN"]
+#             )
+#         ]
+#     )
+# ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
