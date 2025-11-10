@@ -44,7 +44,9 @@ if USE_POSTGIS:
 # TODO: HOW DOES IT INTERACT W/ pgbouncer ?
 # CONN_MAX_AGE = 0
 
-DISABLE_SERVER_SIDE_CURSORS = True  # required when using pgbouncer's pool_mode=transaction
+DISABLE_SERVER_SIDE_CURSORS = (
+    True  # required when using pgbouncer's pool_mode=transaction
+)
 
 ########################
 # static & media Files #
@@ -88,6 +90,9 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+# SECURE_SSL_REDIRECT = True  # not using b/c of nginx reverse-proxy (as per https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-SECURE_PROXY_SSL_HEADER)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 #########
 # Email #
