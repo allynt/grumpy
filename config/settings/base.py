@@ -62,6 +62,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "bootstrap_datepicker_plus",
+    "captcha",
     "colorfield",
     "corsheaders",
     # "debug_toolbar",  # added as needed in environment module
@@ -270,6 +271,11 @@ ALLOWED_HOSTS = ["*"]  # redefined in environment module
 EMAIL_TIMEOUT = 60
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# captcha settings for ContactForm
+
+CAPTCHA_FOREGROUND_COLOR = "#150904"  # brand-color
+CAPTCHA_CHALLENGE_FUNCT = "captcha.helpers.random_char_challenge"
 
 ############
 # messages #
