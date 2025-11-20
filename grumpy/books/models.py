@@ -30,10 +30,10 @@ class BookQuerySet(models.QuerySet):
         return self.order_by("?").first()
 
     def reading(self):
-        return self.filter(meeting__isnull=False).filter(meeting__status="Future")
+        return self.filter(meeting__isnull=False, meeting__status="FUTURE")
 
     def read(self):
-        return self.filter(meeting__isnull=False).filter(meeting__status="Past")
+        return self.filter(meeting__isnull=False, meeting__status="PAST")
 
     def unread(self):
         return self.filter(meeting__isnull=True)
