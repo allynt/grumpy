@@ -7,7 +7,7 @@ from django.utils.functional import empty
 class DynamicSetting(object):
     """
     Allows a variable in DJANGO_SETTINGS_MODULE to be defined by a field in a SingletonMixin.
-    Therefore, it can be used before any apps have been loaded.
+    The `default_value` ensures it can be used before any apps have been loaded.
     """
 
     def __init__(self, source, default_value):
