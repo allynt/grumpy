@@ -7,6 +7,7 @@ from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
 from grumpy.core.utils import is_error
+from grumpy.books.forms import BookForm
 from grumpy.books.models import Book
 
 logger = logging.getLogger(__name__)
@@ -36,11 +37,7 @@ class BookListView(LoginRequiredMixin, ListView):
 
 class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Book
-    fields = [
-        "title",
-        "author",
-        "description",
-    ]
+    form_class = BookForm
     template_name = "books/book_form.html"
     success_url = reverse_lazy("book-list")
 
@@ -65,11 +62,7 @@ class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 class BookUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Book
-    fields = [
-        "title",
-        "author",
-        "description",
-    ]
+    form_class = BookForm
     template_name = "books/book_form.html"
     context_object_name = "book"
 

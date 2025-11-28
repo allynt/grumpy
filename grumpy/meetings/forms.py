@@ -54,3 +54,12 @@ class MeetingForm(forms.ModelForm):
             }
         )
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # make sure all the widgets make good use of the available space
+        for field_name, field_obj in self.fields.items():
+            if field_name == "date":
+                field_obj.widget.attrs["class"] = "w-75"
+            else:
+                field_obj.widget.attrs["class"] = "w-100"
