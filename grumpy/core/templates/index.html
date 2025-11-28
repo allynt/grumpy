@@ -8,7 +8,7 @@
 {% block header %}
     {{ block.super }}
     <div id="banner" class="text-center">
-        <img class="img-fluid"  src="{% static 'core/img/banner.jpg' %}"/>
+        <img class="img-fluid"  src="{% static 'core/img/index.jpg' %}"/>
     </div>
 {% endblock header %}
 
@@ -25,7 +25,7 @@
             <h6 class="card-subtitle text-muted">(Please sign in and use the navigation links above to do stuff.)</h6>
             <br/>
             <p class="card-text">
-                We all anonymously nominate books to read.  Then one book is selected at random to discuss at the next meeting.
+                We all <span class="text-uppercase">anonymously</span> nominate books to read.  Then one book is <span class="text-uppercase">randomly</span> selected to discuss at the next meeting.
             </p>
             <p class="card-text">
                 So far we have read <strong>{{ n_read_books }}</strong> book{{ n_read_books|pluralize }}.
