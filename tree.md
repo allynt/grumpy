@@ -88,7 +88,6 @@ output of `tree -a -U -I '.git' --dirsfirst .`:
     │   │       │   └── base.css
     │   │       ├── img
     │   │       │   ├── auth.jpg
-    │   │       │   ├── banner.jpg
     │   │       │   ├── beer.png
     │   │       │   ├── books.jpg
     │   │       │   ├── error.jpg
@@ -96,6 +95,7 @@ output of `tree -a -U -I '.git' --dirsfirst .`:
     │   │       │   ├── favicon-32x32.png
     │   │       │   ├── favicon.ico
     │   │       │   ├── help.jpg
+    │   │       │   ├── index.jpg
     │   │       │   └── meetings.jpg
     │   │       └── js
     │   │           └── grumpy.js
