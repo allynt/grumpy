@@ -14,6 +14,7 @@ output of `tree -a -U -I '.git' --dirsfirst .`:
 ├── Procfile
 ├── pyproject.toml
 ├── uv.lock
+├── .python-version
 ├── .dockerignore
 ├── .gitignore
 ├── _media
