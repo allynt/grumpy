@@ -147,6 +147,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             str(ROOT_DIR / "grumpy/core/templates"),
+            str(ROOT_DIR / "config/templates"),
         ],
         # 'APP_DIRS': True,  # not needed since "app_directories.Loader" is specified below
         "OPTIONS": {
