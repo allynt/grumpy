@@ -11,6 +11,7 @@ from django.conf.urls import handler400, handler403, handler404, handler500
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 # from allauth.account.decorators import secure_admin_login
 
@@ -48,6 +49,11 @@ admin.autodiscover()
 #################
 
 urlpatterns = [
+    # robots.txt
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
     # admin...
     path("admin/", admin.site.urls),
     # auth...
