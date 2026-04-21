@@ -74,5 +74,4 @@ Failure to do this may result in permission erors when Django tries to copy stat
 4. There is also a help page with some helpful information.
 5. That's it.  There's not much to it.
 
-shortcut: https://bit.ly/grumpybookclub
 url: https://grumpy-38764c2c607e.herokuapp.com/
