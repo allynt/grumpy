@@ -40,7 +40,7 @@ class MeetingForm(forms.ModelForm):
         queryset=Book.objects.unread(),
         required=True,
         to_field_name="title",
-        widget=forms.TextInput(attrs={"readonly": "readonly"}),
+        widget=forms.TextInput(attrs={"readonly": "readonly", "type": "password"}),
     )
 
     location = gis_forms.PointField(
@@ -59,7 +59,7 @@ class MeetingForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # make sure all the widgets make good use of the available space
         for field_name, field_obj in self.fields.items():
-            if field_name == "date":
+            if field_name in ["book", "date"]:
                 field_obj.widget.attrs["class"] = "w-75"
             else:
                 field_obj.widget.attrs["class"] = "w-100"
