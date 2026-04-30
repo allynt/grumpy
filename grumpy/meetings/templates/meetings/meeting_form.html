@@ -30,7 +30,14 @@
                     <div class="form-group row">
                         <div class="col-sm-2">{{ field.label_tag }}</div>
                         <div class="col-sm-10">
-                            {{ field }}
+                            <div class="input-group">
+                                {{ field }}
+                                {% if field.name == "book" %}
+                                    <span class="input-group-text" id="toggleBookVisibility">
+                                        <i class="bi bi-eye"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
                             <div class="help form-text text-muted">{{ field.field.help_text|safe }}</div>
                             <div class="text-danger">{{ field.errors }}</div>
                         </div>
@@ -44,3 +51,18 @@
     </div>
 
 {% endblock content %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script type='text/javascript'>
+        $(document).ready(function() {
+            // toggle visibility of book...
+            const bookField = $("#id_book");
+            $("#toggleBookVisibility").on("click", function() {
+               bookFieldType = $(bookField).attr("type") === "password" ? "text" : "password";
+               $(bookField).attr("type", bookFieldType);
+               $(this).find(".bi").toggleClass("bi-eye-slash bi-eye")
+            });
+        });
+    </script>
+{% endblock scripts %}
