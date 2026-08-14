@@ -35,6 +35,11 @@ class GrumpySettings(SingletonMixin, models.Model):
         help_text=_("Notify managers when a new user signs up."),
     )
 
+    notify_books = models.BooleanField(
+        default=False,
+        help_text=_("Notify managers when a book is added or deleted."),
+    )
+
     password_min_length = models.PositiveIntegerField(
         default=6, help_text=_("Minimum length of a user password")
     )

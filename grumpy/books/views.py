@@ -1,10 +1,15 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import mail_managers
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+
+from allauth.account.adapter import get_adapter
 
 from grumpy.core.utils import is_error
 from grumpy.books.forms import BookForm
@@ -49,6 +54,13 @@ class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             messages.add_message(
                 self.request, messages.SUCCESS, f'Successfully added "{self.object}".'
             )
+
+            if settings.NOTIFY_BOOKS:
+                adapter = get_adapter(self.request)
+                subject = adapter.format_email_subject("new book created")
+                message = f"User {current_user} created a new book on {get_current_site(self.request)}."
+                mail_managers(subject, message, fail_silently=True)
+
         return response
 
     def test_func(self):
@@ -109,4 +121,11 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             messages.add_message(
                 self.request, messages.SUCCESS, f'Successfully deleted "{self.object}".'
             )
+
+            if settings.NOTIFY_BOOKS:
+                adapter = get_adapter(self.request)
+                subject = adapter.format_email_subject("book deleted")
+                message = f"User {self.request.user} deleted a book on {get_current_site(self.request)}."
+                mail_managers(subject, message, fail_silently=True)
+
         return response
