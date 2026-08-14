@@ -1,3 +1,4 @@
+import copy
 import logging
 
 from django.conf import settings
@@ -16,6 +17,13 @@ from grumpy.books.forms import BookForm
 from grumpy.books.models import Book
 
 logger = logging.getLogger(__name__)
+
+
+def notify(request, subject, message):
+    adapter = get_adapter(request)
+    subject = adapter.format_email_subject(subject)
+    message = f"{message} [{get_current_site(request)}]"
+    mail_managers(subject, message, fail_silently=True)
 
 
 class BookListView(LoginRequiredMixin, ListView):
@@ -56,10 +64,11 @@ class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             )
 
             if settings.NOTIFY_BOOKS:
-                adapter = get_adapter(self.request)
-                subject = adapter.format_email_subject("new book created")
-                message = f"User {current_user} created a new book on {get_current_site(self.request)}."
-                mail_managers(subject, message, fail_silently=True)
+                notify(
+                    self.request,
+                    "new book created",
+                    f"User {current_user} created a new book: {self.object.id}.",
+                )
 
         return response
 
@@ -116,6 +125,9 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return user_can_delete_book
 
     def form_valid(self, form):
+        deleted_book = copy.copy(
+            self.object
+        )  # shallow copy to refer to book details after it's been deleted
         response = super().form_valid(form)
         if not is_error(response.status_code):
             messages.add_message(
@@ -123,9 +135,10 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             )
 
             if settings.NOTIFY_BOOKS:
-                adapter = get_adapter(self.request)
-                subject = adapter.format_email_subject("book deleted")
-                message = f"User {self.request.user} deleted a book on {get_current_site(self.request)}."
-                mail_managers(subject, message, fail_silently=True)
+                notify(
+                    self.request,
+                    "book deleted",
+                    f"User {self.request.user} deleted a book: {deleted_book.id}.",
+                )
 
         return response
