@@ -1,16 +1,29 @@
+import copy
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import mail_managers
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+
+from allauth.account.adapter import get_adapter
 
 from grumpy.core.utils import is_error
 from grumpy.books.forms import BookForm
 from grumpy.books.models import Book
 
 logger = logging.getLogger(__name__)
+
+
+def notify(request, subject, message):
+    adapter = get_adapter(request)
+    subject = adapter.format_email_subject(subject)
+    message = f"{message} [{get_current_site(request)}]"
+    mail_managers(subject, message, fail_silently=True)
 
 
 class BookListView(LoginRequiredMixin, ListView):
@@ -49,6 +62,14 @@ class BookCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             messages.add_message(
                 self.request, messages.SUCCESS, f'Successfully added "{self.object}".'
             )
+
+            if settings.NOTIFY_BOOKS:
+                notify(
+                    self.request,
+                    "new book created",
+                    f"User {current_user} created a new book: {self.object.id}.",
+                )
+
         return response
 
     def test_func(self):
@@ -104,9 +125,20 @@ class BookDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return user_can_delete_book
 
     def form_valid(self, form):
+        deleted_book = copy.copy(
+            self.object
+        )  # shallow copy to refer to book details after it's been deleted
         response = super().form_valid(form)
         if not is_error(response.status_code):
             messages.add_message(
                 self.request, messages.SUCCESS, f'Successfully deleted "{self.object}".'
             )
+
+            if settings.NOTIFY_BOOKS:
+                notify(
+                    self.request,
+                    "book deleted",
+                    f"User {self.request.user} deleted a book: {deleted_book.id}.",
+                )
+
         return response

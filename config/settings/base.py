@@ -335,6 +335,11 @@ NOTIFY_SIGNUPS = DynamicSetting(
     True,
 )
 
+NOTIFY_BOOKS = DynamicSetting(
+    "core.GrumpySettings.notify_books",
+    False,
+)
+
 PASSWORD_MIN_LENGTH = DynamicSetting(
     "core.GrumpySettings.password_min_length",
     8,

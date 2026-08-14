@@ -10,6 +10,7 @@ class GrumpySettingsAdmin(admin.ModelAdmin):
         "allow_signup",
         "require_approval",
         "notify_signups",
+        "notify_books",
         "password_min_length",
         "password_max_length",
         "password_strength",
